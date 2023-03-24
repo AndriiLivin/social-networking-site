@@ -1,5 +1,3 @@
-import { rerenderEntireTree } from "../render";
-
 // создаем объекты, состоящие из массива данных
 // эти данные в свою очередь тоже являются обьектами
 let dialogsData = [
@@ -51,7 +49,7 @@ let messagesData = [
   },
 ];
 
-// создаем объект из объектов, кот содержат массивы данных
+// создаем объект из объектов, который  содержат массивы данных
 let state = {
   profilePage: {
     posts: postsData,
@@ -63,6 +61,25 @@ let state = {
     messages: messagesData,
   },
 };
+
+// создаем заглушку для приема содержимого
+// такой же функции снаружи
+// let обязательно для стрелочной или можно Function - ее можно переопределить
+function rerenderEntireTree() {
+  console.log("State изменен.");
+}
+
+// создаем еще одну функцию, которая предназначена для передачи имени функции
+// без появления цикличности с импортами
+// в этом файле не импортов вообще
+export function subscribe(observer) {
+  // создается НАБЛЮДАТЕЛЬ
+
+  // не пишем let т.к. нам ненужно создавать,
+  //  а нужно переопределить  ранее созданную заглушку let rerenderEntireTree = () => {
+  // даже изменять содержание заглушки не требуется, просто переопределяем
+  rerenderEntireTree = observer;
+}
 
 // window.state = state;
 
@@ -87,7 +104,9 @@ export function addPost() {
   state.profilePage.newPostText = "";
 
   // перерисовываем изменения
-  rerenderEntireTree(state);
+  // state можно не передавать, он попадает при определении функции
+  // rerenderEntireTree(state);  а можно и передавать
+  rerenderEntireTree();
 }
 
 //создаем функцию по обработке вводимого текста сообщения
@@ -95,7 +114,9 @@ export function updateNewPostText(newText) {
   state.profilePage.newPostText = newText;
 
   // перерисовываем изменения
-  rerenderEntireTree(state);
+  // state можно не передавать
+  // rerenderEntireTree(state);
+  rerenderEntireTree();
 }
 
 export default state;
