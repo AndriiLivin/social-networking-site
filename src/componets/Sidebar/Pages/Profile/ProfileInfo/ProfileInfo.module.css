@@ -1,0 +1,10 @@
+.profile img {
+  width: 100%;
+}
+
+.ava {
+  padding: 10px;
+  font-size: 44px;
+  letter-spacing: 12px;
+  color: rgb(72, 108, 109);
+}

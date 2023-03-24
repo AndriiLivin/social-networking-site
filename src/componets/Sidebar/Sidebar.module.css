@@ -1,0 +1,27 @@
+.nav {
+  padding: 20px;
+  grid-area: n;
+  background-color: rgb(153, 96, 187);
+}
+.nav div{
+ margin-bottom: 20px; 
+}
+
+.nav div:last-child{
+  margin-top: 80px;
+ margin-bottom: 0px; 
+}
+
+.item a {
+ font-size: 28px;
+  color: rgb(216, 209, 200);
+  text-decoration: none;
+}
+
+.item a:hover {
+  color: white;
+}
+
+.item a.activeLink {
+  color: rgb(60, 127, 131);
+}

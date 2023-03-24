@@ -1,3 +1,26 @@
+body {
+  padding: 10px;
+
+  background-color: rgb(72, 108, 109);
+}
+
+.App-wrapper {
+  display: grid;
+  grid-template-areas: "h h" "n main" "f f";
+
+  grid-template-rows: 80px 1fr 80px;
+  grid-template-columns: 1fr 5fr;
+  grid-gap: 10px;
+
+  width: 1200px;
+}
+
+.App-wrapper__content {
+  grid-area: main;
+  padding: 5px;
+  background-color: rgb(211, 143, 116);
+}
+
 .App {
   text-align: center;
 }

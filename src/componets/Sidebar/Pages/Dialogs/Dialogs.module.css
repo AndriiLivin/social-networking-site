@@ -1,0 +1,38 @@
+.dialogs {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+
+  margin: 10px auto;
+  /* width: 150px; */
+
+  font-size: 30px;
+  color: crimson;
+  text-align: center;
+  border: 3px solid crimson;
+  border-radius: 15px;
+}
+
+.dialogs_items {
+  padding: 20px;
+  text-align: start;
+}
+
+.dialog a {
+  color: rgb(58, 99, 175);
+}
+.dialog a:hover {
+  color: rgb(163, 20, 220);
+}
+
+.dialog a.activeLink {
+  color: crimson;
+}
+
+.messages {
+  padding: 20px;
+  text-align: start;
+}
+
+.message {
+  color: black;
+}
