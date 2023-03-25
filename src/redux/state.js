@@ -106,7 +106,7 @@ export function addPost() {
   // перерисовываем изменения
   // state можно не передавать, он попадает при определении функции
   // rerenderEntireTree(state);  а можно и передавать
-  rerenderEntireTree();
+  rerenderEntireTree(state);
 }
 
 //создаем функцию по обработке вводимого текста сообщения
@@ -116,7 +116,7 @@ export function updateNewPostText(newText) {
   // перерисовываем изменения
   // state можно не передавать
   // rerenderEntireTree(state);
-  rerenderEntireTree();
+  rerenderEntireTree(state);
 }
 
 export default state;
