@@ -5,9 +5,10 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
-import state, { subscribe } from "./redux/state";
-import { addPost } from "./redux/state";
-import { updateNewPostText } from "./redux/state";
+import store from "./redux/state";
+// import state, { subscribe } from "./redux/state";
+// import { addPost } from "./redux/state";
+// import { updateNewPostText } from "./redux/state";
 
 // import { rerenderEntireTree } from "./render";
 
@@ -16,23 +17,23 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 
 // создаем функцию перерисовки всего дерева
-export function rerenderEntireTree(state) {
+export function rerenderEntireTree(state2) {
   root.render(
     <React.StrictMode>
       <BrowserRouter>
         <App
-          appState={state}
-          addPost={addPost}
-          updateNewPostText={updateNewPostText}
+          appState={state2}
+          addPost={store.addPost.bind(store)}
+          updateNewPostText={store.updateNewPostText.bind(store)}
         />
       </BrowserRouter>
     </React.StrictMode>
   );
 };
 
-rerenderEntireTree(state);
+rerenderEntireTree(store.getState());
 // передаем имя функции в subscribe, а ее импортируем из  state
-subscribe(rerenderEntireTree);
+store.subscribe(rerenderEntireTree);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
