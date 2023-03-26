@@ -50,7 +50,13 @@ const MyPosts = (props) => {
     // Вызывыем колбэк функцию с введенными данными
 
     // props.addPost(textPost);
-     props.addPost();
+
+
+    props.dispatch({ type: "ADD-POST" });
+    //  props.addPost();
+    
+
+
     // обнуляем строку ввода
     // newPostElement.current.value = "";
     // передаем пустую строку
@@ -59,7 +65,13 @@ const MyPosts = (props) => {
   }
 
   function onPostChange() {
-    props.updateNewPostText(newPostElement.current.value);
+
+    props.dispatch({
+      type: "UPDATE-NEW-POST-TEXT",
+      newText: newPostElement.current.value,
+    });
+    //  props.updateNewPostText(newPostElement.current.value);
+    // props.updateNewPostText(newPostElement.current.value);
     // console.log(newPostElement.current.value);
   }
 

@@ -65,45 +65,69 @@ let state1 = {
 // создаем объект из объектов данных встроенных функций для их обработки
 let store = {
   _state: state1,
-  // создаем метод доступа к _state
-  getState() {
-    return this._state;
-  },
-
   //функция вызова наблюдателя
   _callObserver() {
     console.log("Наблюдатель сообщает об изменениях в State.");
   },
 
-  //
+  // создаем метод доступа к _state
+  getState() {
+    return this._state;
+  },
+
+  // создается НАБЛЮДАТЕЛЬ
   subscribe(observer) {
-    // создается НАБЛЮДАТЕЛЬ
     //переопределяем имя _callObserver
     this._callObserver = observer;
   },
 
-  //создаем функцию по обработке вводимого текста сообщения
-  updateNewPostText(newText) {
-    this._state.profilePage.newPostText = newText;
+  // //создаем функцию по обработке вводимого текста сообщения
+  // _updateNewPostText(newText) {
+  //   this._state.profilePage.newPostText = newText;
 
-    // перерисовываем изменения
-    this._callObserver(this._state);
-  },
+  //   // перерисовываем изменения
+  //   this._callObserver(this._state);
+  // },
 
-  addPost() {
-    let newPost = {
-      id: this._state.profilePage.posts.length,
-      message: this._state.profilePage.newPostText,
-      likesCount: 0,
-      // image: "",
-      image: "https://klike.net/uploads/posts/2019-05/medium/1556705567_5.jpg",
-    };
-    this._state.profilePage.posts.push(newPost);
-    // обнуляем строку после ее вставки в массив
-    this._state.profilePage.newPostText = "";
+  // _addPost() {
+  //   let newPost = {
+  //     id: this._state.profilePage.posts.length,
+  //     message: this._state.profilePage.newPostText,
+  //     likesCount: 0,
+  //     // image: "",
+  //     image: "https://klike.net/uploads/posts/2019-05/medium/1556705567_5.jpg",
+  //   };
+  //   this._state.profilePage.posts.push(newPost);
+  //   // обнуляем строку после ее вставки в массив
+  //   this._state.profilePage.newPostText = "";
 
-    // перерисовываем изменения
-    this._callObserver(this._state);
+  //   // перерисовываем изменения
+  //   this._callObserver(this._state);
+  // },
+  // сохдаем универсальный метод
+  // в него предаем объект action
+  // action содержит свойство type: "ADD-POST"
+  dispatch(action) {
+    if (action.type === "ADD-POST") {
+      let newPost = {
+        id: this._state.profilePage.posts.length,
+        message: this._state.profilePage.newPostText,
+        likesCount: 0,
+        // image: "",
+        image:
+          "https://klike.net/uploads/posts/2019-05/medium/1556705567_5.jpg",
+      };
+      this._state.profilePage.posts.push(newPost);
+      // обнуляем строку после ее вставки в массив
+      this._state.profilePage.newPostText = "";
+
+      // перерисовываем изменения
+      this._callObserver(this._state);
+    } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+       this._state.profilePage.newPostText = action.newText;
+       // перерисовываем изменения
+       this._callObserver(this._state);
+    }
   },
 };
 

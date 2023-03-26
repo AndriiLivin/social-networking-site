@@ -14,8 +14,6 @@ import store from "./redux/state";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-
-
 // создаем функцию перерисовки всего дерева
 export function rerenderEntireTree(state2) {
   root.render(
@@ -23,13 +21,16 @@ export function rerenderEntireTree(state2) {
       <BrowserRouter>
         <App
           appState={state2}
+          dispatch={store.dispatch.bind(store)} />
+        {/* <App
+          appState={state2}
           addPost={store.addPost.bind(store)}
           updateNewPostText={store.updateNewPostText.bind(store)}
-        />
+        /> */}
       </BrowserRouter>
     </React.StrictMode>
   );
-};
+}
 
 rerenderEntireTree(store.getState());
 // передаем имя функции в subscribe, а ее импортируем из  state
