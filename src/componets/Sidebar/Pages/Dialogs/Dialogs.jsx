@@ -1,59 +1,60 @@
 import React from "react";
-// import { NavLink } from "react-router-dom";
+import {
+  sendMessageActionCreator,
+  upDateNewMessageActionCreator,
+} from "../../../../redux/state";
+
 import DialogItem from "./DialogItem/DialogItem";
 
 import style from "./Dialogs.module.css";
 import MessageText from "./MessageText/MessageText";
 
 const Dialogs = (props) => {
-  // let dialogsData = [
-  //   { idPath: 0, name: "Andrii" },
-  //   { idPath: 1, name: "Sergii" },
-  //   { idPath: 2, name: "Victoriya" },
-  //   { idPath: 3, name: "Petro" },
-  //   { idPath: 4, name: "Helen" },
-  //   { idPath: 5, name: "Gonsonuk" },
-  // ];
-  // let messagesData = [
-  //   { id: 0, message: "Привет!" },
-  //   { id: 1, message: "Как дела в принципе." },
-  //   { id: 2, message: "Хочешь поговорить?" },
-  //   { id: 3, message: "Это здорово." },
-  //   { id: 4, message: "Не хочу говорить." },
-  // ];
+  let state = props.store.getState().messagesPage;
 
-  let dialogsElements = props.data.map((dial) => {
+  let dialogsElements = state.dialogs.map((dial) => {
     return <DialogItem key={dial.id} name={dial.name} number={dial.id} />;
   });
 
-  let messagesElements = props.messagesData.map((mess) => {
+  let messagesElements = state.messages.map((mess) => {
     return (
       <MessageText key={mess.id} massage={mess.message} number={mess.id} />
     );
   });
 
-  let newPostElement = React.createRef();
+  let newMessageBody = state.newMessageBody;
 
-  let addPost = () => {
-    let textPost = newPostElement.current.value;
-    alert(textPost);
-  };
+  function onSendMessageClick() {
+    if (newMessageBody === "") {
+      props.store.dispatch(upDateNewMessageActionCreator("Пустое сообщение"));
+    }
+    props.store.dispatch(sendMessageActionCreator());
+  }
+
+  function onNewMessageChange(e) {
+    let body = e.target.value;
+    props.store.dispatch(upDateNewMessageActionCreator(body));
+  }
 
   return (
     <section>
       <div className={style.dialogs}>
-        <div className={style.dialogs_items}>{dialogsElements}</div>
+        <div className={style.dialogs_items}>
+          <div>{dialogsElements}</div>
+        </div>
 
-        <div className={style.messages}>{messagesElements}</div>
-        <div>
-          <section>
+        <div className={style.messages}>
+          <div>{messagesElements}</div>
+          <div>
             <textarea
-              ref={newPostElement}
-              
+              value={newMessageBody}
+              onChange={onNewMessageChange}
+              placeholder="Enter your message."
             ></textarea>
-          </section>
-          <button onClick={addPost}>Add post</button>
-          <button>Remove</button>
+          </div>
+          <div>
+            <button onClick={onSendMessageClick}>Send</button>
+          </div>
         </div>
       </div>
     </section>

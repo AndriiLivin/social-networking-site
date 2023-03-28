@@ -14,7 +14,11 @@ export function rerenderEntireTree(state2) {
   root.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App appState={state2} dispatch={store.dispatch.bind(store)} />
+        <App
+          appState={state2}
+          dispatch={store.dispatch.bind(store)}
+          store={store}
+        />
       </BrowserRouter>
     </React.StrictMode>
   );

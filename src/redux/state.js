@@ -1,6 +1,12 @@
 // создаем констаны для именования свойств
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+
+const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
+const SEND_MESSAGE = "SEND-MESSAGE";
+
+
+
 // создаем объекты, состоящие из массива данных
 // эти данные в свою очередь тоже являются обьектами
 let dialogsData = [
@@ -10,6 +16,18 @@ let dialogsData = [
   { id: 3, name: "Victoriya" },
   { id: 4, name: "Petro" },
   { id: 5, name: "Helen" },
+];
+
+let messagesData = [
+  { id: 0, message: "Привет!" },
+  { id: 1, message: "Как дела в принципе." },
+  { id: 2, message: "Хочешь поговорить?" },
+  { id: 3, message: "Это здорово." },
+  {
+    id: 4,
+    message:
+      "Последнее сообщение из списка произвольной длины. Цвет не черный.",
+  },
 ];
 
 let postsData = [
@@ -40,18 +58,6 @@ let postsData = [
   },
 ];
 
-let messagesData = [
-  { id: 0, message: "Привет!" },
-  { id: 1, message: "Как дела в принципе." },
-  { id: 2, message: "Хочешь поговорить?" },
-  { id: 3, message: "Это здорово." },
-  {
-    id: 4,
-    message:
-      "Последнее сообщение из списка произвольной длины. Цвет не черный.",
-  },
-];
-
 // создаем объект из объектов, который  содержат массивы данных
 let state1 = {
   profilePage: {
@@ -62,6 +68,7 @@ let state1 = {
   messagesPage: {
     dialogs: dialogsData,
     messages: messagesData,
+    newMessageBody:"",
   },
 };
 
@@ -109,16 +116,39 @@ let store = {
       this._state.profilePage.newPostText = action.newText;
       // перерисовываем изменения
       this._callObserver(this._state);
+
+    } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+      this._state.messagesPage.newMessageBody = action.newBody;
+      this._callObserver(this._state);
+      
+    } else if (action.type === SEND_MESSAGE) {
+   let newBody = {
+     id: this._state.messagesPage.messages.length,
+     message: this._state.messagesPage.newMessageBody,
+   };
+   this._state.messagesPage.messages .push(newBody);
+   // обнуляем строку после ее вставки в массив
+   this._state.messagesPage.newMessageBody = "";
+
+   // перерисовываем изменения
+   this._callObserver(this._state);
     }
   },
 };
 
 export const addPostActionCreator =() =>({type: ADD_POST, });
-
 export function upDateNewPostActionCreator(newPostText) {
   return {
     type: UPDATE_NEW_POST_TEXT,
     newText: newPostText,
+  };
+}
+
+export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE, });
+export function upDateNewMessageActionCreator(newMessageText) {
+  return {
+    type: UPDATE_NEW_MESSAGE_BODY,
+    newBody: newMessageText,
   };
 }
 
