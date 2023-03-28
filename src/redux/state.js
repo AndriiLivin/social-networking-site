@@ -1,3 +1,6 @@
+// создаем констаны для именования свойств
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 // создаем объекты, состоящие из массива данных
 // эти данные в свою очередь тоже являются обьектами
 let dialogsData = [
@@ -62,7 +65,7 @@ let state1 = {
   },
 };
 
-// создаем объект из объектов данных встроенных функций для их обработки
+// создаем объект из объектов данных и встроенных функций для их обработки
 let store = {
   _state: state1,
   //функция вызова наблюдателя
@@ -108,7 +111,7 @@ let store = {
   // в него предаем объект action
   // action содержит свойство type: "ADD-POST"
   dispatch(action) {
-    if (action.type === "ADD-POST") {
+    if (action.type === ADD_POST) {
       let newPost = {
         id: this._state.profilePage.posts.length,
         message: this._state.profilePage.newPostText,
@@ -123,13 +126,29 @@ let store = {
 
       // перерисовываем изменения
       this._callObserver(this._state);
-    } else if (action.type === "UPDATE-NEW-POST-TEXT") {
-       this._state.profilePage.newPostText = action.newText;
-       // перерисовываем изменения
-       this._callObserver(this._state);
+    } else if (action.type === UPDATE_NEW_POST_TEXT) {
+      this._state.profilePage.newPostText = action.newText;
+      // перерисовываем изменения
+      this._callObserver(this._state);
     }
   },
 };
+
+
+// export function addPostActionCreator() {
+//   return {
+//     type: ADD_POST,
+//   };
+// }
+// сокращаем запись
+export const addPostActionCreator =() =>({type: ADD_POST, });
+
+export function upDateNewPostActionCreator(newPostText) {
+  return {
+    type: UPDATE_NEW_POST_TEXT,
+    newText: newPostText,
+  };
+}
 
 // // создаем заглушку для приема содержимого
 // // такой же функции снаружи

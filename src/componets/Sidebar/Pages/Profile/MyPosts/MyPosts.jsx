@@ -1,6 +1,21 @@
 import React from "react";
+import { addPostActionCreator, upDateNewPostActionCreator } from "../../../../../redux/state";
 import style from "./MyPosts.module.css";
 import Post from "./Post/Post";
+
+// function addPostActionCreator() {
+//   return {
+//     type: "ADD-POST",
+//   };
+// }
+
+// function upDateNewPostActionCreator(newPostText) {
+//   return {
+//     type: "UPDATE-NEW-POST-TEXT",
+//     newText: newPostText,
+//   };
+  
+// }
 
 const MyPosts = (props) => {
   // let postsData = [
@@ -51,11 +66,9 @@ const MyPosts = (props) => {
 
     // props.addPost(textPost);
 
-
-    props.dispatch({ type: "ADD-POST" });
+    props.dispatch(addPostActionCreator());
+    // props.dispatch({ type: "ADD-POST" });
     //  props.addPost();
-    
-
 
     // обнуляем строку ввода
     // newPostElement.current.value = "";
@@ -65,11 +78,13 @@ const MyPosts = (props) => {
   }
 
   function onPostChange() {
+       props.dispatch(upDateNewPostActionCreator(newPostElement.current.value));
 
-    props.dispatch({
-      type: "UPDATE-NEW-POST-TEXT",
-      newText: newPostElement.current.value,
-    });
+    //  props.dispatch({
+    //    type: "UPDATE-NEW-POST-TEXT",
+    //    newText: newPostElement.current.value,
+    //  });
+
     //  props.updateNewPostText(newPostElement.current.value);
     // props.updateNewPostText(newPostElement.current.value);
     // console.log(newPostElement.current.value);
