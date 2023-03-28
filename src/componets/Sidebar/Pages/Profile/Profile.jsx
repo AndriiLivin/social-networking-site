@@ -13,8 +13,6 @@ const Profile = (props) => {
         postsData={props.postsData.posts}
         newPostText={props.postsData.newPostText}
         dispatch={props.dispatch}
-        // addPost={props.addPost}
-        // updateNewPostText={props.updateNewPostText}
       />
     </section>
   );

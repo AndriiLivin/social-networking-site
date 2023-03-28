@@ -6,11 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
 import store from "./redux/state";
-// import state, { subscribe } from "./redux/state";
-// import { addPost } from "./redux/state";
-// import { updateNewPostText } from "./redux/state";
-
-// import { rerenderEntireTree } from "./render";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -19,21 +14,14 @@ export function rerenderEntireTree(state2) {
   root.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App
-          appState={state2}
-          dispatch={store.dispatch.bind(store)} />
-        {/* <App
-          appState={state2}
-          addPost={store.addPost.bind(store)}
-          updateNewPostText={store.updateNewPostText.bind(store)}
-        /> */}
+        <App appState={state2} dispatch={store.dispatch.bind(store)} />
       </BrowserRouter>
     </React.StrictMode>
   );
 }
 
 rerenderEntireTree(store.getState());
-// передаем имя функции в subscribe, а ее импортируем из  state
+// передаем имя функции в subscribe, а ее получаем как метод store
 store.subscribe(rerenderEntireTree);
 
 // If you want to start measuring performance in your app, pass a function
