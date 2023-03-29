@@ -39,7 +39,7 @@ const App = (props) => {
                 // messagesData={props.appState.messagesPage.messages}
                 // newMessageBody={props.appState.messagesPage.newMessageBody}
                 // dispatch={props.dispatch}
-                store ={props.store}
+                store={props.store}
               />
             }
           />

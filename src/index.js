@@ -5,12 +5,14 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
-import store from "./redux/store";
+import store from "./redux/redux_store";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 // создаем функцию перерисовки всего дерева
 export function rerenderEntireTree(state2) {
+ 
   root.render(
     <React.StrictMode>
       <BrowserRouter>
@@ -26,7 +28,9 @@ export function rerenderEntireTree(state2) {
 
 rerenderEntireTree(store.getState());
 // передаем имя функции в subscribe, а ее получаем как метод store
-store.subscribe(rerenderEntireTree);
+store.subscribe(() => {
+  rerenderEntireTree(store.getState());
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
