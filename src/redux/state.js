@@ -1,11 +1,13 @@
-// создаем констаны для именования свойств
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReducer";
+import sidebarReducer from "./sidebarReducer";
 
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
-const SEND_MESSAGE = "SEND-MESSAGE";
+// // создаем констаны для именования свойств
+// const ADD_POST = "ADD-POST";
+// const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 
-
+// const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
+// const SEND_MESSAGE = "SEND-MESSAGE";
 
 // создаем объекты, состоящие из массива данных
 // эти данные в свою очередь тоже являются обьектами
@@ -68,14 +70,15 @@ let state1 = {
   messagesPage: {
     dialogs: dialogsData,
     messages: messagesData,
-    newMessageBody:"",
+    newMessageBody: "",
   },
+  sidebar: {},
 };
 
 // создаем объект из объектов данных и встроенных функций для их обработки
 let store = {
   _state: state1,
-  
+
   //функция вызова наблюдателя
   _callObserver() {
     console.log("Наблюдатель сообщает об изменениях в State.");
@@ -94,63 +97,68 @@ let store = {
 
   // сохдаем универсальный метод
   dispatch(action) {
-    if (action.type === ADD_POST) {
-      // сохраняем введеное сообщение
-      let newPost = {
-        id: this._state.profilePage.posts.length,
-        message: this._state.profilePage.newPostText,
-        likesCount: 0,
-        // image: "",
-        image:
-          "https://klike.net/uploads/posts/2019-05/medium/1556705567_5.jpg",
-      };
-      this._state.profilePage.posts.push(newPost);
-      // обнуляем строку после ее вставки в массив
-      this._state.profilePage.newPostText = "";
+    // изменяем свою часть state
 
-      // перерисовываем изменения
-      this._callObserver(this._state);
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.messagesPage = dialogsReducer(this._state.messagesPage, action);
+    this._state.sidebar = sidebarReducer(this._state.sidebar, action);
 
-    } else if (action.type === UPDATE_NEW_POST_TEXT) {
-      //создаем функцию по обработке вводимого текста сообщения
-      this._state.profilePage.newPostText = action.newText;
-      // перерисовываем изменения
-      this._callObserver(this._state);
+    this._callObserver(this._state);
 
-    } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-      this._state.messagesPage.newMessageBody = action.newBody;
-      this._callObserver(this._state);
-      
-    } else if (action.type === SEND_MESSAGE) {
-   let newBody = {
-     id: this._state.messagesPage.messages.length,
-     message: this._state.messagesPage.newMessageBody,
-   };
-   this._state.messagesPage.messages .push(newBody);
-   // обнуляем строку после ее вставки в массив
-   this._state.messagesPage.newMessageBody = "";
+    // if (action.type === ADD_POST) {
+    //   // сохраняем введеное сообщение
+    //   let newPost = {
+    //     id: this._state.profilePage.posts.length,
+    //     message: this._state.profilePage.newPostText,
+    //     likesCount: 0,
+    //     // image: "",
+    //     image:
+    //       "https://klike.net/uploads/posts/2019-05/medium/1556705567_5.jpg",
+    //   };
+    //   this._state.profilePage.posts.push(newPost);
+    //   // обнуляем строку после ее вставки в массив
+    //   this._state.profilePage.newPostText = "";
 
-   // перерисовываем изменения
-   this._callObserver(this._state);
-    }
+    //   // перерисовываем изменения
+    //   this._callObserver(this._state);
+    // } else if (action.type === UPDATE_NEW_POST_TEXT) {
+    //   //создаем функцию по обработке вводимого текста сообщения
+    //   this._state.profilePage.newPostText = action.newText;
+    //   // перерисовываем изменения
+    //   this._callObserver(this._state);
+    // } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+    //   this._state.messagesPage.newMessageBody = action.newBody;
+    //   this._callObserver(this._state);
+    // } else if (action.type === SEND_MESSAGE) {
+    //   let newBody = {
+    //     id: this._state.messagesPage.messages.length,
+    //     message: this._state.messagesPage.newMessageBody,
+    //   };
+    //   this._state.messagesPage.messages.push(newBody);
+    //   // обнуляем строку после ее вставки в массив
+    //   this._state.messagesPage.newMessageBody = "";
+
+    //   // перерисовываем изменения
+    //   this._callObserver(this._state);
+    // }
   },
 };
 
-export const addPostActionCreator =() =>({type: ADD_POST, });
-export function upDateNewPostActionCreator(newPostText) {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    newText: newPostText,
-  };
-}
+// export const addPostActionCreator = () => ({ type: ADD_POST });
+// export function upDateNewPostActionCreator(newPostText) {
+//   return {
+//     type: UPDATE_NEW_POST_TEXT,
+//     newText: newPostText,
+//   };
+// }
 
-export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE, });
-export function upDateNewMessageActionCreator(newMessageText) {
-  return {
-    type: UPDATE_NEW_MESSAGE_BODY,
-    newBody: newMessageText,
-  };
-}
+// export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE });
+// export function upDateNewMessageActionCreator(newMessageText) {
+//   return {
+//     type: UPDATE_NEW_MESSAGE_BODY,
+//     newBody: newMessageText,
+//   };
+// }
 
 export default store;
 window.store = store;

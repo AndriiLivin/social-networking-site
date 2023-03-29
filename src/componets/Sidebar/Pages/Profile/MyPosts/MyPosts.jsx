@@ -1,8 +1,9 @@
 import React from "react";
-import {
-  addPostActionCreator,
-  upDateNewPostActionCreator,
-} from "../../../../../redux/state";
+import { addPostActionCreator, upDateNewPostActionCreator } from "../../../../../redux/profileReducer";
+// import {
+//   addPostActionCreator,
+//   upDateNewPostActionCreator,
+// } from "../../../../../redux/state";
 import style from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
@@ -21,11 +22,11 @@ const MyPosts = (props) => {
   let newPostElement = React.createRef();
 
   function addPost() {
-    props.dispatch(addPostActionCreator());
+      props.dispatch(addPostActionCreator());
   }
 
   function onPostChange() {
-    props.dispatch(upDateNewPostActionCreator(newPostElement.current.value));
+     props.dispatch(upDateNewPostActionCreator(newPostElement.current.value));
   }
 
   return (

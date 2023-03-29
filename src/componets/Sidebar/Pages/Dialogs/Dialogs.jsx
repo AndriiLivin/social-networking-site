@@ -1,8 +1,9 @@
 import React from "react";
-import {
-  sendMessageActionCreator,
-  upDateNewMessageActionCreator,
-} from "../../../../redux/state";
+import { sendMessageActionCreator, upDateNewMessageActionCreator } from "../../../../redux/dialogsReducer";
+// import {
+//   sendMessageActionCreator,
+//   upDateNewMessageActionCreator,
+// } from "../../../../redux/state";
 
 import DialogItem from "./DialogItem/DialogItem";
 
@@ -28,7 +29,7 @@ const Dialogs = (props) => {
     if (newMessageBody === "") {
       props.store.dispatch(upDateNewMessageActionCreator("Пустое сообщение"));
     }
-    props.store.dispatch(sendMessageActionCreator());
+        props.store.dispatch(sendMessageActionCreator());
   }
 
   function onNewMessageChange(e) {
