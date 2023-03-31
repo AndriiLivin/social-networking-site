@@ -1,10 +1,7 @@
 import React from "react";
-import { addPostActionCreator, upDateNewPostActionCreator } from "../../../../../redux/profileReducer";
-// import {
-//   addPostActionCreator,
-//   upDateNewPostActionCreator,
-// } from "../../../../../redux/state";
+
 import style from "./MyPosts.module.css";
+
 import Post from "./Post/Post";
 
 const MyPosts = (props) => {
@@ -21,12 +18,16 @@ const MyPosts = (props) => {
 
   let newPostElement = React.createRef();
 
-  function addPost() {
-      props.dispatch(addPostActionCreator());
+  function onAddPost() {
+    if (newPostElement.current.value === "") {
+      props.upDateNewPostText("Пустой пост.");
+    }
+          props.addPost();
   }
 
   function onPostChange() {
-     props.dispatch(upDateNewPostActionCreator(newPostElement.current.value));
+    let text = newPostElement.current.value;
+     props.upDateNewPostText(text);
   }
 
   return (
@@ -41,7 +42,7 @@ const MyPosts = (props) => {
               value={props.newPostText}
             />
           </section>
-          <button onClick={addPost}>Add post</button>
+          <button onClick={onAddPost}>Add post</button>
           <button>Remove</button>
         </div>
       </div>

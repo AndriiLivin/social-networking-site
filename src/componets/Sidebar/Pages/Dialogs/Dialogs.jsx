@@ -1,17 +1,12 @@
 import React from "react";
-import { sendMessageActionCreator, upDateNewMessageActionCreator } from "../../../../redux/dialogsReducer";
-// import {
-//   sendMessageActionCreator,
-//   upDateNewMessageActionCreator,
-// } from "../../../../redux/state";
 
 import DialogItem from "./DialogItem/DialogItem";
-
-import style from "./Dialogs.module.css";
 import MessageText from "./MessageText/MessageText";
 
+import style from "./Dialogs.module.css";
+
 const Dialogs = (props) => {
-  let state = props.store.getState().messagesPage;
+  let state = props.messagesPage;
 
   let dialogsElements = state.dialogs.map((dial) => {
     return <DialogItem key={dial.id} name={dial.name} number={dial.id} />;
@@ -27,14 +22,14 @@ const Dialogs = (props) => {
 
   function onSendMessageClick() {
     if (newMessageBody === "") {
-      props.store.dispatch(upDateNewMessageActionCreator("Пустое сообщение"));
+      props.upDateNewMessageBody("Пустое сообщение");
     }
-        props.store.dispatch(sendMessageActionCreator());
+    props.sendMessage();
   }
 
   function onNewMessageChange(e) {
     let body = e.target.value;
-    props.store.dispatch(upDateNewMessageActionCreator(body));
+    props.upDateNewMessageBody(body);
   }
 
   return (
