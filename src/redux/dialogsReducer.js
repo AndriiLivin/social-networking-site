@@ -32,6 +32,14 @@ const dialogsReducer = (state = initialState, action) => {
   // делаем легкую копию объекта
   let stateCopy = { ...state };
 
+  // можно делать и так, но это не всегда требуется
+  let stateCopy1 = {
+    ...state,
+    // именно такой порядок, а не наоборот.
+    // перезатираются свойства
+    messages: [...state.messages],
+  };
+
   switch (action.type) {
     case UPDATE_NEW_MESSAGE_BODY:
       stateCopy.newMessageBody = action.newBody;
