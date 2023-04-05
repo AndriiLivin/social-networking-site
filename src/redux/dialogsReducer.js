@@ -29,22 +29,33 @@ const dialogsReducer = (state = initialState, action) => {
   // state === this._state.messagesPage;
   // т.к. приходит только нужная часть store-state
 
+  // делаем легкую копию объекта
+  let stateCopy = { ...state };
+
   switch (action.type) {
     case UPDATE_NEW_MESSAGE_BODY:
-      state.newMessageBody = action.newBody;
-      return state;
+      stateCopy.newMessageBody = action.newBody;
+      return stateCopy;
     // break;
     case SEND_MESSAGE:
       let newBody = {
         id: state.messages.length,
         message: state.newMessageBody,
       };
-      state.messages.push(newBody);
+
+      // доделываем глубокое попирование объекта
+      stateCopy.messages = [...state.messages];
+
+      stateCopy.messages.push(newBody);
       // обнуляем строку после ее вставки в массив
-      state.newMessageBody = "";
-      return state;
+      stateCopy.newMessageBody = "";
+      return stateCopy;
     // break;
     default:
+      // здесь ничего не помнялось.
+      // поэтому возвращаем исходный объект.
+      // при его сравнении с исходныь будет полное равенство
+      //  и не потребуется перерисовка объекта
       return state;
     // break;
   }

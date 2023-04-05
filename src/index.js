@@ -13,7 +13,7 @@ import { Provider } from "react-redux";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 // создаем функцию перерисовки всего дерева
-export function rerenderEntireTree() {
+// export function rerenderEntireTree() {
   // export function rerenderEntireTree(state2) {
   root.render(
     <React.StrictMode>
@@ -33,15 +33,16 @@ export function rerenderEntireTree() {
       </BrowserRouter>
     </React.StrictMode>
   );
-}
+// }
 
 // rerenderEntireTree(store.getState());
-rerenderEntireTree();
+// rerenderEntireTree();
 // передаем имя функции в subscribe, а ее получаем как метод store
-store.subscribe(() => {
-  // rerenderEntireTree(store.getState());
-  rerenderEntireTree();
-});
+
+// store.subscribe(() => {
+//   // rerenderEntireTree(store.getState());
+//   rerenderEntireTree();
+// });
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

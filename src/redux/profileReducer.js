@@ -36,6 +36,10 @@ let initialState = {
 const profileReducer = (state = initialState, action) => {
   // state === this._state.profilePage;
   // т.к. приходит только нужная часть store-state
+
+  // делаем легкую копию объекта
+  let stateCopy = { ...state };
+
   switch (action.type) {
     case ADD_POST:
       let newPost = {
@@ -47,19 +51,28 @@ const profileReducer = (state = initialState, action) => {
           "https://klike.net/uploads/posts/2019-05/medium/1556705567_5.jpg",
       };
 
-      state.posts.push(newPost);
+      // доделываем глубокое попирование объекта
+      stateCopy.posts = [...state.posts];
+
+      stateCopy.posts.push(newPost);
       // обнуляем строку после ее вставки в массив
-      state.newPostText = "";
-      return state;
+      stateCopy.newPostText = "";
+      return stateCopy;
     // break;
 
     case UPDATE_NEW_POST_TEXT:
       //создаем функцию по обработке вводимого текста сообщения
-      state.newPostText = action.newText;
-      return state;
+      // let stateCopy = { ...state };
+
+      stateCopy.newPostText = action.newText;
+      return stateCopy;
     // break;
 
     default:
+      // здесь ничего не помнялось.
+      // поэтому возвращаем исходный объект.
+      // при его сравнении с исходныь будет полное равенство
+      //  и не потребуется перерисовка объекта
       return state;
     // break;
   }
