@@ -33,31 +33,48 @@ const dialogsReducer = (state = initialState, action) => {
   let stateCopy = { ...state };
 
   // можно делать и так, но это не всегда требуется
-  let stateCopy1 = {
-    ...state,
-    // именно такой порядок, а не наоборот.
-    // перезатираются свойства
-    messages: [...state.messages],
-  };
+  // let stateCopy1 = {
+  //   ...state,
+  //   // именно такой порядок, а не наоборот.
+  //   // перезатираются свойства
+  //   messages: [...state.messages],
+  // };
 
   switch (action.type) {
     case UPDATE_NEW_MESSAGE_BODY:
-      stateCopy.newMessageBody = action.newBody;
-      return stateCopy;
-    // break;
-    case SEND_MESSAGE:
-      let newBody = {
-        id: state.messages.length,
-        message: state.newMessageBody,
+      // новая форма записи
+
+      return {
+        ...state,
+        newMessageBody: action.newBody,
       };
 
-      // доделываем глубокое попирование объекта
-      stateCopy.messages = [...state.messages];
+      // return stateCopy;
+    // break;
+    case SEND_MESSAGE:
+      // let newBody = {
+      //   id: state.messages.length,
+      //   message: state.newMessageBody,
+      // };
 
-      stateCopy.messages.push(newBody);
+      // доделываем глубокое попирование объекта
+      return {
+        ...state,
+        newMessageBody: "",
+        messages: [
+          ...state.messages,
+          {
+            id: state.messages.length,
+            message: state.newMessageBody,
+          },
+        ],
+      };
+      // stateCopy.messages = [...state.messages];
+
+      // stateCopy.messages.push(newBody);
       // обнуляем строку после ее вставки в массив
-      stateCopy.newMessageBody = "";
-      return stateCopy;
+      // stateCopy.newMessageBody = "";
+      // return stateCopy;
     // break;
     default:
       // здесь ничего не помнялось.

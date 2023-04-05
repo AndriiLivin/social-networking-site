@@ -6,7 +6,7 @@ import MessageText from "./MessageText/MessageText";
 import style from "./Dialogs.module.css";
 
 const Dialogs = (props) => {
-  console.log(props);
+
   let state = props.messagesPage;
 
   let dialogsElements = state.dialogs.map((dial) => {

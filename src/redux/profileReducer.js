@@ -38,34 +38,53 @@ const profileReducer = (state = initialState, action) => {
   // т.к. приходит только нужная часть store-state
 
   // делаем легкую копию объекта
-  let stateCopy = { ...state };
+  // let stateCopy = { ...state };
 
   switch (action.type) {
     case ADD_POST:
-      let newPost = {
-        id: state.posts.length,
-        message: state.newPostText,
-        likesCount: 0,
-        // image: "",
-        image:
-          "https://klike.net/uploads/posts/2019-05/medium/1556705567_5.jpg",
-      };
+      // let newPost = {
+      //   id: state.posts.length,
+      //   message: state.newPostText,
+      //   likesCount: 0,
+      //   // image: "",
+      //   image:
+      //     "https://klike.net/uploads/posts/2019-05/medium/1556705567_5.jpg",
+      // };
 
       // доделываем глубокое попирование объекта
-      stateCopy.posts = [...state.posts];
+      return {
+        ...state,
+        newPostText: "",
+        posts: [
+          ...state.posts,
+          {
+            id: state.posts.length,
+            message: state.newPostText,
+            likesCount: 0,
+            // image: "",
+            image:
+              "https://klike.net/uploads/posts/2019-05/medium/1556705567_5.jpg",
+          },
+        ],
+      };
+      // stateCopy.posts = [...state.posts];
 
-      stateCopy.posts.push(newPost);
+      // stateCopy.posts.push(newPost);
       // обнуляем строку после ее вставки в массив
-      stateCopy.newPostText = "";
-      return stateCopy;
+      // stateCopy.newPostText = "";
+      // return stateCopy;
     // break;
 
     case UPDATE_NEW_POST_TEXT:
       //создаем функцию по обработке вводимого текста сообщения
       // let stateCopy = { ...state };
+      return {
+        ...state,
+        newPostText: action.newText,
+      };
 
-      stateCopy.newPostText = action.newText;
-      return stateCopy;
+      // stateCopy.newPostText = action.newText;
+      // return stateCopy;
     // break;
 
     default:
