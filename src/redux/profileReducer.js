@@ -34,24 +34,8 @@ let initialState = {
 };
 
 const profileReducer = (state = initialState, action) => {
-  // state === this._state.profilePage;
-  // т.к. приходит только нужная часть store-state
-
-  // делаем легкую копию объекта
-  // let stateCopy = { ...state };
-
   switch (action.type) {
     case ADD_POST:
-      // let newPost = {
-      //   id: state.posts.length,
-      //   message: state.newPostText,
-      //   likesCount: 0,
-      //   // image: "",
-      //   image:
-      //     "https://klike.net/uploads/posts/2019-05/medium/1556705567_5.jpg",
-      // };
-
-      // доделываем глубокое попирование объекта
       return {
         ...state,
         newPostText: "",
@@ -61,70 +45,24 @@ const profileReducer = (state = initialState, action) => {
             id: state.posts.length,
             message: state.newPostText,
             likesCount: 0,
-            // image: "",
             image:
               "https://klike.net/uploads/posts/2019-05/medium/1556705567_5.jpg",
           },
         ],
       };
-      // stateCopy.posts = [...state.posts];
-
-      // stateCopy.posts.push(newPost);
-      // обнуляем строку после ее вставки в массив
-      // stateCopy.newPostText = "";
-      // return stateCopy;
     // break;
 
     case UPDATE_NEW_POST_TEXT:
-      //создаем функцию по обработке вводимого текста сообщения
-      // let stateCopy = { ...state };
       return {
         ...state,
         newPostText: action.newText,
       };
-
-      // stateCopy.newPostText = action.newText;
-      // return stateCopy;
     // break;
 
     default:
-      // здесь ничего не помнялось.
-      // поэтому возвращаем исходный объект.
-      // при его сравнении с исходныь будет полное равенство
-      //  и не потребуется перерисовка объекта
       return state;
     // break;
   }
-
-  // if (action.type === ADD_POST) {
-  //   // сохраняем введеное сообщение
-  //   let newPost = {
-  //     id: state.posts.length,
-  //     message: state.newPostText,
-  //     likesCount: 0,
-  //     // image: "",
-  //     image: "https://klike.net/uploads/posts/2019-05/medium/1556705567_5.jpg",
-  //   };
-
-  //   state.posts.push(newPost);
-  //   // обнуляем строку после ее вставки в массив
-  //   state.newPostText = "";
-
-  //   // перерисовываем изменения
-  //   // удалили т.к. никого не уведомляем
-  //   // this._callObserver(this._state);
-
-  // } else if (action.type === UPDATE_NEW_POST_TEXT) {
-  //   //создаем функцию по обработке вводимого текста сообщения
-  //   state.newPostText = action.newText;
-
-  //   // перерисовываем изменения
-  //   // удалили т.к. никого не уведомляем
-  //   // this._callObserver(this._state);
-  //   // this._callObserver(this._state);
-  // }
-
-  // return state;
 };
 
 export const addPostActionCreator = () => ({ type: ADD_POST });

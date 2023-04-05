@@ -26,38 +26,15 @@ let initialState = {
 };
 
 const dialogsReducer = (state = initialState, action) => {
-  // state === this._state.messagesPage;
-  // т.к. приходит только нужная часть store-state
-
-  // делаем легкую копию объекта
-  let stateCopy = { ...state };
-
-  // можно делать и так, но это не всегда требуется
-  // let stateCopy1 = {
-  //   ...state,
-  //   // именно такой порядок, а не наоборот.
-  //   // перезатираются свойства
-  //   messages: [...state.messages],
-  // };
-
   switch (action.type) {
     case UPDATE_NEW_MESSAGE_BODY:
-      // новая форма записи
-
       return {
         ...state,
         newMessageBody: action.newBody,
       };
-
-      // return stateCopy;
     // break;
-    case SEND_MESSAGE:
-      // let newBody = {
-      //   id: state.messages.length,
-      //   message: state.newMessageBody,
-      // };
 
-      // доделываем глубокое попирование объекта
+    case SEND_MESSAGE:
       return {
         ...state,
         newMessageBody: "",
@@ -69,38 +46,12 @@ const dialogsReducer = (state = initialState, action) => {
           },
         ],
       };
-      // stateCopy.messages = [...state.messages];
-
-      // stateCopy.messages.push(newBody);
-      // обнуляем строку после ее вставки в массив
-      // stateCopy.newMessageBody = "";
-      // return stateCopy;
     // break;
+
     default:
-      // здесь ничего не помнялось.
-      // поэтому возвращаем исходный объект.
-      // при его сравнении с исходныь будет полное равенство
-      //  и не потребуется перерисовка объекта
       return state;
     // break;
   }
-
-  // if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-  //   state.newMessageBody = action.newBody;
-  //   // this._callObserver(this._state);
-  // } else if (action.type === SEND_MESSAGE) {
-  //   let newBody = {
-  //     id: state.messages.length,
-  //     message: state.newMessageBody,
-  //   };
-  //   state.messages.push(newBody);
-  //   // обнуляем строку после ее вставки в массив
-  //   state.newMessageBody = "";
-
-  //   // перерисовываем изменения
-  //   // this._callObserver(this._state);
-  // }
-  // return state;
 };
 
 export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE });

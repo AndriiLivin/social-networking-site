@@ -4,7 +4,6 @@ import { Route } from "react-router-dom";
 
 import "./App.css";
 
-// import Dialogs from "./componets/Sidebar/Pages/Dialogs/Dialogs";
 import Footer from "./componets/Footer/Footer";
 import Header from "./componets/Header/Header";
 import Music from "./componets/Sidebar/Pages/Music/Music";
@@ -22,25 +21,10 @@ const App = (props) => {
 
       <main className="App-wrapper__content">
         <Routes>
-          <Route
-            path="/Profile"
-            element={
-              <Profile
-                // store={props.store}
-                
-                // postsData={props.appState.profilePage}
-                // dispatch={props.dispatch}
-              />
-            }
-          />
+          <Route path="/Profile" element={<Profile />} />
 
-          <Route
-            path="/Dialogs"
-            
-            element={<DialogsContainer
-              // store={props.store}
-            />}
-          />
+          <Route path="/Dialogs" element={<DialogsContainer />} />
+
           <Route path="/News" element={<News />} />
           <Route path="/Music" element={<Music />} />
           <Route path="/Settings" element={<Settings />} />
