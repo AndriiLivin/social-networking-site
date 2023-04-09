@@ -15,7 +15,7 @@ body {
   width: 1200px;
 }
 
-.App-wrapper__content {
+.App-wrapper__pages {
   grid-area: main;
   padding: 5px;
   background-color: rgb(211, 143, 116);

@@ -12,14 +12,16 @@ import Settings from "./componets/Sidebar/Pages/Settings/Settings";
 import Profile from "./componets/Sidebar/Pages/Profile/Profile";
 import Sidebar from "./componets/Sidebar/Sidebar";
 import DialogsContainer from "./componets/Sidebar/Pages/Dialogs/DialogsContainer";
+import UsersContainer from "./componets/Sidebar/Pages/Users/UsersContainer";
 
 const App = (props) => {
+   console.log("проход");
   return (
     <div className="App-wrapper">
       <Header />
       <Sidebar />
-
-      <main className="App-wrapper__content">
+      
+      <main className="App-wrapper__pages">
         <Routes>
           <Route path="/Profile" element={<Profile />} />
 
@@ -27,6 +29,9 @@ const App = (props) => {
 
           <Route path="/News" element={<News />} />
           <Route path="/Music" element={<Music />} />
+
+          <Route path="/Users" element={<UsersContainer />} />
+
           <Route path="/Settings" element={<Settings />} />
         </Routes>
       </main>

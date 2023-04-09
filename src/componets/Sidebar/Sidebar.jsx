@@ -48,6 +48,16 @@ const Sidebar = () => {
       </div>
       <div className={style.item}>
         <NavLink
+          to="/Users"
+          className={({ isActive }) =>
+            isActive ? style.activeLink : undefined
+          }
+        >
+          Users
+        </NavLink>
+      </div>
+      <div className={style.item}>
+        <NavLink
           to="/Settings"
           className={({ isActive }) =>
             isActive ? style.activeLink : undefined
