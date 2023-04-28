@@ -1,5 +1,6 @@
 // import React from "react";
-import Users from "./Users";
+// import Users from "./Users";
+import Users from "./UsersClassComponent";
 import { connect } from "react-redux";
 import {
   followACreator,

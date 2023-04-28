@@ -104,7 +104,8 @@ const usersReduser = (state = initialState, action) => {
         ...state,
         // берем существующий стайт и перетираем прользователей
         // склейкой старых и пришедших
-        users: [...state.users, ...action.users],
+        // users: [...state.users, ...action.users],
+        users: [...action.users],
       };
     // break;
 

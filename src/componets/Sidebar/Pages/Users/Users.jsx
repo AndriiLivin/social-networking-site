@@ -9,74 +9,27 @@ import userFotoBlank from "../Users/userFotoBlank.jpg";
 //  то в props будут находиться пользователи props.users
 
 const Users = (props) => {
-  if (props.users.length === 0) {
 
+  let getUsers = () => {
+    if (props.users.length === 0) {
+      axios
+        .get(" https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases")
+        .then((response) => {
+          props.setUsers(response.data);
+        });
 
-    axios
-      .get(" https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases")
-      .then((response) => {
-        props.setUsers(response.data);
-      });
-    // console.log(axios.get(" https://social-network.samuraijs.com/api/1.0/users"));
+      // axios
+      //   .get(" https://social-network.samuraijs.com/api/1.0/users")
+      //   .then((response) => {
+      //     props.setUsers(response.data.items);
+      //   });
+    }
+  };
 
-    // axios
-    //   .get(" https://social-network.samuraijs.com/api/1.0/users")
-    //   .then((response) => {
-    //     props.setUsers(response.data.items);
-    //   });
+  return (<div>
 
-    //   props.setUsers([
-    //     {
-    //       id: 0,
-    //       fullName: "Andrii",
-    //       status: "I am a teacher.",
-    //       location: {
-    //         country: "Ukraine",
-    //         city: "Kyiv",
-    //       },
-    //       followed: true,
-    //       photoUrl:
-    //         "https://bipbap.ru/wp-content/uploads/2021/07/ae785830348d0d06a40e79f2219052ad-730x548.jpg",
-    //     },
-    //     {
-    //       id: 1,
-    //       fullName: "Victorya",
-    //       status: "I am a bookceaper.",
-    //       location: {
-    //         country: "Ukraine",
-    //         city: "Odessa",
-    //       },
-    //       followed: false,
-    //       photoUrl:
-    //         "https://klike.net/uploads/posts/2019-03/medium/1551511819_33.jpg",
-    //     },
-    //     {
-    //       id: 2,
-    //       fullName: "Petro",
-    //       status: "I no now.",
-    //       location: {
-    //         countre: "Turque",
-    //         city: "Stambul",
-    //       },
-    //       followed: true,
-    //       photoUrl: "https://klike.net/uploads/posts/2019-03/1551511851_21.jpg",
-    //     },
-    //     {
-    //       id: 3,
-    //       fullName: "Helen",
-    //       status: "I am a girl.",
-    //       location: {
-    //         country: "Germany",
-    //         city: "Drezden",
-    //       },
-    //       followed: false,
-    //       photoUrl: "https://klike.net/uploads/posts/2019-03/1551511827_30.jpg",
-    //     },
-    //   ]);
-  }
+    <button onClick={getUsers} >Get users</button>
 
-  return (
-    <div>
       <div>
         {props.users.map((u) => (
           // всегда нужен  key={u.id}
