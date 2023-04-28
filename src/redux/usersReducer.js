@@ -53,20 +53,27 @@ let initialState = {
     //   photoUrl: "https://klike.net/uploads/posts/2019-03/1551511827_30.jpg",
     // },
   ],
-  newKey: "55",
 };
 
 const usersReduser = (state = initialState, action) => {
 
    switch (action.type) {
     case FOLLOW:
-      return {
-        ...state,
+       return {
+        // возвращаем копию стэйта
+         ...state,
+         
+        //  возвращаем копию пользователей
         // users: { ...state.users },
+         
+        //  или тоже самое, но через MAP
+        // map возвращает копию массива на основе заданного 
+        // при этом происходит перебор по условиям
         users: state.users.map(
           // вызываем безимянную функцию
           (u) => {
             if (u.id === action.userId) {
+              // возвращаем копию пользователя по совпадению ID
               return { ...u, followed: true };
             } else {
               return u;

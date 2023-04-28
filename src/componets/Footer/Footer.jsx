@@ -5,13 +5,10 @@ const Footer = () => {
   return (
     <footer className={style.footer}>
       <div>
-        <a>Содержимое Футера</a>
+        <a href="#!">Содержимое Футера</a>
       </div>
-  
     </footer>
   );
-}
-
-
+};
 
 export default Footer;

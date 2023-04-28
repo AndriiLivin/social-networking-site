@@ -13,6 +13,7 @@ let reducers = combineReducers({
   usersPage: usersReduser,
 });
 
+// создается state из частей
 let store = legacy_createStore(reducers);
 
 window.store = store;
