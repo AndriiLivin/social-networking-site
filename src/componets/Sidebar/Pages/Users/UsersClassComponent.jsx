@@ -18,9 +18,21 @@ class Users extends React.Component {
   // если конструктор не зоздает свойств для этой компоненты
   // то его можно не писать
   // в нашем случае нужно писать т.к. есть axios
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
+  //   // axios
+  //   //   .get(" https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases")
+  //   //   .then((response) => {
+  //   //     // props становится свойством объекта, поэтому нужно писать this.props
+  //   //     this.props.setUsers(response.data);
+  //   //   });
+  // }
+
+  // переносим запрос в componentDidMount()
+  // при этом можно отказаться от конструктора т.к. он только передает props,
+  // а это происходит по умолчанию
+  componentDidMount() {
     axios
       .get(" https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases")
       .then((response) => {
