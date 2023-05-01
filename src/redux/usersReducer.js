@@ -1,12 +1,19 @@
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 
-const SET_USERS = "SET-USERS";
+const SET_USERS = "SET_USERS";
+
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
+
 // создается как бы шаблон, достаточно одного элемента
 let initialState = {
   users: [
     // пустой массив для париема пользователей
   ],
+  pageSize: 54,
+  totalUsersCount: 0,
+  currentPage: 1,
 };
 
 const usersReduser = (state = initialState, action) => {
@@ -63,6 +70,19 @@ const usersReduser = (state = initialState, action) => {
         users: [...action.users],
       };
     // break;
+    case SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.currentPage,
+      };
+    // break;
+
+    case SET_TOTAL_USERS_COUNT:
+      return {
+        ...state,
+        totalUsersCount: action.count,
+      };
+    // break;
 
     default:
       return state;
@@ -75,6 +95,14 @@ export const unfollowACreator = (userId) => ({ type: UNFOLLOW, userId });
 // заполняем пользователей
 export const setUsersACreator = (users) => {
   return { type: SET_USERS, users };
+};
+// устанавливаем тукущую страницу
+export const setCurrentPageAC = (currentPage) => {
+  return { type: SET_CURRENT_PAGE, currentPage };
+};
+
+export const setUsersTotalCountAC = (count) => {
+  return { type: SET_TOTAL_USERS_COUNT, count };
 };
 
 export default usersReduser;

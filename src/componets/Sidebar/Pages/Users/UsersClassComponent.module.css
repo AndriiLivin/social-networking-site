@@ -1,0 +1,23 @@
+.photo {
+  border: 2px solid maroon;
+  width: 60px;
+  height: 60px;
+  border-radius: 30%;
+}
+
+.pagination{
+  border: 1px solid maroon;
+  cursor: pointer;
+  font-size: 30px;
+  color: white;
+}
+
+.selectedPage{
+  font-weight: 700;
+  color: black;
+  
+
+}
+/* .selectedPage:active{
+  font-weight: 700;
+} */

@@ -6,14 +6,21 @@ import {
   followACreator,
   setUsersACreator,
   unfollowACreator,
+  setCurrentPageAC,
+  setUsersTotalCountAC,
 } from "../../../../redux/usersReducer";
-
 
 // это функция принимает весь state целиком и возвращает только нужные данные
 const mapStateToProps = (state) => {
   return {
     users: state.usersPage.users,
     // newKey:state.usersPage.newKey,
+
+    // добавляем информацию о страницах
+    pageSize: state.usersPage.pageSize,
+    totalUsersCount: state.usersPage.totalUsersCount,
+    currentPage: state.usersPage.currentPage,
+  
   };
 };
 
@@ -24,15 +31,20 @@ const mapDispatchToProps = (dispatch) => {
       // диспатчим результат работы экшенКриэйтора
       dispatch(followACreator(userId));
     },
-    
+
     unfollow: (userId) => {
       // диспатчим результат работы экшенКриэйтора
       dispatch(unfollowACreator(userId));
     },
 
     setUsers: (users) => {
-     
       dispatch(setUsersACreator(users));
+    },
+    setCurrentPage: (pageNumber) => {
+      dispatch(setCurrentPageAC(pageNumber));
+    },
+    setTotalUsersCount: (totalCount) => {
+      dispatch(setUsersTotalCountAC(totalCount));
     },
   };
 };
