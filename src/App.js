@@ -15,7 +15,7 @@ import DialogsContainer from "./componets/Sidebar/Pages/Dialogs/DialogsContainer
 import UsersContainer from "./componets/Sidebar/Pages/Users/UsersContainer";
 
 const App = (props) => {
-   console.log("проход");
+
   return (
     <div className="App-wrapper">
       <Header />

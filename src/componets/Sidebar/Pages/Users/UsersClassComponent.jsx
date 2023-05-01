@@ -33,37 +33,57 @@ class Users extends React.Component {
   // при этом можно отказаться от конструктора т.к. он только передает props,
   // а это происходит по умолчанию
   componentDidMount() {
-    // axios
-    //   .get(" https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases")
-    //   .then((response) => {
-    //     console.log(response);
-    //     // props становится свойством объекта, поэтому нужно писать this.props
-    //     this.props.setUsers(response.data);
-    //   });
     axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
-      )
+      .get(" https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases")
       .then((response) => {
-        console.log(response);
-        this.props.setUsers(response.data.items);
-        this.props.setTotalUsersCount(response.data.totalCount);
-        console.log(response.data.items.length);
-        console.log(response.data.totalCount);
+        let data = [];
+
+        for (let i = 0; i < this.props.pageSize; i++) {
+          // data.push(response.data[i]);
+          data = [...data, response.data[i]];
+        }
+        // props становится свойством объекта, поэтому нужно писать this.props
+
+        // this.props.setUsers(response.data);
+        this.props.setUsers(data);
+
+        this.props.setTotalUsersCount(response.data.length);
       });
+    // axios
+    //   .get(
+    //     `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
+    //   )
+    //   .then((response) => {
+    //     this.props.setUsers(response.data.items);
+    //     this.props.setTotalUsersCount(response.data.totalCount);
+    //   });
   }
 
   onPageChanged = (pageNumber) => {
     this.props.setCurrentPage(pageNumber);
-    
-        axios
-          .get(
-            `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`
-          )
-          .then((response) => {
-            console.log(response);
-            this.props.setUsers(response.data.items);
-          });
+
+    // axios
+    //   .get(
+    //     `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`
+    //   )
+    //   .then((response) => {
+    //     this.props.setUsers(response.data.items);
+    //   });
+    axios
+      .get(`https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases`)
+      .then((response) => {
+        let data = [];
+        const iMax =
+          this.props.pageSize * pageNumber < this.props.totalUsersCount
+            ? this.props.pageSize * pageNumber
+            : this.props.totalUsersCount;
+
+        for (let i = this.props.pageSize * (pageNumber - 1); i < iMax; i++) {
+          data.push(response.data[i]);
+        }
+        // this.props.setUsers(response.data.items);
+        this.props.setUsers(data);
+      });
   };
 
   // props в рендер не приходят
@@ -72,14 +92,15 @@ class Users extends React.Component {
   // сначала вызывается render = (), а потом только componentDidMount()
   render = () => {
     // считаем количество кнопок в пагинации
-    const pagesCount = Math.ceil( this.props.totalUsersCount / this.props.pageSize);
- 
+    const pagesCount = Math.ceil(
+      this.props.totalUsersCount / this.props.pageSize
+    );
+
     // создаем массив страниц для отображения
     const pages = [];
     for (let index = 1; index <= pagesCount; index++) {
       pages.push(index);
     }
-
 
     return (
       <div>
@@ -90,10 +111,13 @@ class Users extends React.Component {
                 key={p}
                 className={
                   this.props.currentPage === p ? style.selectedPage : ""
-                // } onClick={()=>{this.props.setCurrentPage(p)}}
-                } onClick={(event)=>{this.onPageChanged(p)}}
+                  // } onClick={()=>{this.props.setCurrentPage(p)}}
+                }
+                onClick={(event) => {
+                  this.onPageChanged(p);
+                }}
               >
-                {".."+p+".."}
+                {".." + p + ".."}
               </span>
             );
           })}
@@ -143,10 +167,10 @@ class Users extends React.Component {
                   <div>{u.status} </div>
                 </span>
                 <span>
-                  <div>{"u.location.country"}</div>
-                  <div>{"u.location.city"}</div>
-                  {/* <div>{u.country}</div>
-                  <div>{u.city}</div> */}
+                  {/* <div>{"u.location.country"}</div>
+                  <div>{"u.location.city"}</div> */}
+                  <div>{u.country}</div>
+                  <div>{u.city}</div>
                 </span>
               </span>
             </div>

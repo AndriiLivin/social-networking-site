@@ -11,7 +11,7 @@ let initialState = {
   users: [
     // пустой массив для париема пользователей
   ],
-  pageSize: 54,
+  pageSize: 3,
   totalUsersCount: 0,
   currentPage: 1,
 };

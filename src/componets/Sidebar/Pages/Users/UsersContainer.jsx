@@ -12,9 +12,9 @@ import {
 
 // это функция принимает весь state целиком и возвращает только нужные данные
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
     users: state.usersPage.users,
-    // newKey:state.usersPage.newKey,
 
     // добавляем информацию о страницах
     pageSize: state.usersPage.pageSize,
