@@ -1,22 +1,16 @@
 import React from "react";
-// import Users from "./Users";
-// import UsersAPIComponent from "./UsersAPIComponent";
-import { connect } from "react-redux";
-import {
-  followACreator,
-  setUsersACreator,
-  unfollowACreator,
-  setCurrentPageAC,
-  setUsersTotalCountAC,
-} from "../../../../redux/usersReducer";
+// import style from "./UsersFunctionComponent.module.css";
+// import axios, { Axios } from "axios";
 import axios from "axios";
 import UsersFunctionComponent from "./UsersFunctionComponent";
 
-// Называем API т.к. связывает между собой container и UsersFunctionComponent
+// т.к. в mapStateToProps = (state) => {
+// мы поместили users return { users: state.usersPage.users, }
+//  то в props будут находиться пользователи props.users
+
 class UsersAPIComponent extends React.Component {
+ 
   componentDidMount() {
-    console.log("первый");
-    this.props.setCurrentPage(1);
     axios
       .get(" https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases")
       .then((response) => {
@@ -89,48 +83,4 @@ class UsersAPIComponent extends React.Component {
   };
 }
 
-// это функция принимает весь state целиком и возвращает только нужные данные
-const mapStateToProps = (state) => {
-  return {
-    users: state.usersPage.users,
-
-    // добавляем информацию о страницах
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-  };
-};
-
-// для пердачи функци-колбэков
-const mapDispatchToProps = (dispatch) => {
-  return {
-    follow: (userId) => {
-      // диспатчим результат работы экшенКриэйтора
-      dispatch(followACreator(userId));
-    },
-
-    unfollow: (userId) => {
-      // диспатчим результат работы экшенКриэйтора
-      dispatch(unfollowACreator(userId));
-    },
-
-    setUsers: (users) => {
-      dispatch(setUsersACreator(users));
-    },
-    setCurrentPage: (pageNumber) => {
-      dispatch(setCurrentPageAC(pageNumber));
-    },
-    setTotalUsersCount: (totalCount) => {
-      dispatch(setUsersTotalCountAC(totalCount));
-    },
-  };
-};
-
-// connect(mapStateToProps, mapDispatchToProps)(Users);
-
-const UsersContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UsersAPIComponent);
-
-export default UsersContainer;
+export default UsersAPIComponent;

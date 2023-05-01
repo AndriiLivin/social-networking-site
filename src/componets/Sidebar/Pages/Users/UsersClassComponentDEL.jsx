@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./UsersClassComponent.module.css";
+import style from "./UsersAPIComponent.module.css";
 // import axios, { Axios } from "axios";
 import axios from "axios";
 import userFotoBlank from "../Users/userFotoBlank.jpg";
@@ -8,7 +8,7 @@ import userFotoBlank from "../Users/userFotoBlank.jpg";
 // мы поместили users return { users: state.usersPage.users, }
 //  то в props будут находиться пользователи props.users
 
-class Users extends React.Component {
+class UsersAPIComponent extends React.Component {
   // наш контсруктор вызывается только один раз при создании объекта
   // поэтому в конструкторе и загружаем список пользователей
   // это происходит один раз и не требует проверки на нулевую длину
@@ -181,4 +181,4 @@ class Users extends React.Component {
   };
 }
 
-export default Users;
+export default UsersAPIComponent;
