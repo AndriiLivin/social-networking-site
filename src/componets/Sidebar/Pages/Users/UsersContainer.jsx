@@ -15,7 +15,7 @@ import UsersFunctionComponent from "./UsersFunctionComponent";
 // Называем API т.к. связывает между собой container и UsersFunctionComponent
 class UsersAPIComponent extends React.Component {
   componentDidMount() {
-    console.log("первый");
+
     this.props.setCurrentPage(1);
     axios
       .get(" https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases")
