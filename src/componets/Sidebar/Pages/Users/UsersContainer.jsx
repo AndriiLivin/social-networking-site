@@ -3,18 +3,16 @@ import React from "react";
 // import UsersAPIComponent from "./UsersAPIComponent";
 import { connect } from "react-redux";
 import {
-  followACreator,
-  setUsersACreator,
-  unfollowACreator,
-  setCurrentPageAC,
-  setUsersTotalCountAC,
-  toggleIsFetchingAC,
+  follow_AC,
+  setUsers,
+  unfollow,
+  setCurrentPage,
+  setUsersTotalCount,
+  toggleIsFetching,
 } from "../../../../redux/usersReducer";
 import axios from "axios";
 import UsersFunctionComponent from "./UsersFunctionComponent";
 import Preloader from "../../../Common/Preloader/preloader";
-
-
 
 // Называем API т.к. связывает между собой container и UsersFunctionComponent
 class UsersAPIComponent extends React.Component {
@@ -40,7 +38,7 @@ class UsersAPIComponent extends React.Component {
         // this.props.setUsers(response.data);
         this.props.setUsers(data);
 
-        this.props.setTotalUsersCount(response.data.length);
+        this.props.setUsersTotalCount(response.data.length);
       });
     // axios
     //   .get(
@@ -91,9 +89,7 @@ class UsersAPIComponent extends React.Component {
     return (
       // заглушка
       <>
-        {this.props.isFetching ? (
-          <Preloader />
-        ) : null}
+        {this.props.isFetching ? <Preloader /> : null}
         <UsersFunctionComponent
           totalUsersCount={this.props.totalUsersCount}
           pageSize={this.props.pageSize}
@@ -111,6 +107,7 @@ class UsersAPIComponent extends React.Component {
 // это функция принимает весь state целиком и возвращает только нужные данные
 const mapStateToProps = (state) => {
   return {
+    //Возвращается объект
     users: state.usersPage.users,
 
     // добавляем информацию о страницах
@@ -122,38 +119,64 @@ const mapStateToProps = (state) => {
 };
 
 // для пердачи функци-колбэков
-const mapDispatchToProps = (dispatch) => {
-  return {
-    follow: (userId) => {
-      // диспатчим результат работы экшенКриэйтора
-      dispatch(followACreator(userId));
-    },
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     //Возвращается объект
+//     follow: (userId) => {
+//       // диспатчим результат работы экшенКриэйтора
+//       dispatch(followACreator(userId));
+//     },
 
-    unfollow: (userId) => {
-      // диспатчим результат работы экшенКриэйтора
-      dispatch(unfollowACreator(userId));
-    },
+//     unfollow: (userId) => {
+//       // диспатчим результат работы экшенКриэйтора
+//       dispatch(unfollowACreator(userId));
+//     },
 
-    setUsers: (users) => {
-      dispatch(setUsersACreator(users));
-    },
-    setCurrentPage: (pageNumber) => {
-      dispatch(setCurrentPageAC(pageNumber));
-    },
-    setTotalUsersCount: (totalCount) => {
-      dispatch(setUsersTotalCountAC(totalCount));
-    },
-    toggleIsFetching: (isFetching) => {
-      dispatch(toggleIsFetchingAC(isFetching));
-    },
-  };
-};
+//     setUsers: (users) => {
+//       dispatch(setUsersACreator(users));
+//     },
+//     setCurrentPage: (pageNumber) => {
+//       dispatch(setCurrentPageAC(pageNumber));
+//     },
+//     setTotalUsersCount: (totalCount) => {
+//       dispatch(setUsersTotalCountAC(totalCount));
+//     },
+//     toggleIsFetching: (isFetching) => {
+//       dispatch(toggleIsFetchingAC(isFetching));
+//     },
+//   };
+// };
 
 // connect(mapStateToProps, mapDispatchToProps)(Users);
 
-const UsersContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UsersAPIComponent);
+// const UsersContainer = connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(UsersAPIComponent);
+
+// лайф-хак
+// пытаемся заставить connect самостоятельно создать колбэки
+// из экшн-криэйторов, без участияmapDispatchToProps
+// для пердачи функци-колбэков
+
+// connect(mapStateToProps, mapDispatchToProps)(Users);
+
+const UsersContainer = connect(mapStateToProps, {
+  // убираем AC для экшен-криэйторов
+  // (в первом случае оставлено для понимания)
+  // чтобы использовать синтаксическое свойство определения свойства в объекте
+  // если имя свойства и имя внешней переменной совпадает, присваивается автоматически.
+  follow: follow_AC,
+
+  unfollow,
+
+  setUsers,
+
+  setCurrentPage,
+
+  setUsersTotalCount,
+
+  toggleIsFetching,
+})(UsersAPIComponent);
 
 export default UsersContainer;

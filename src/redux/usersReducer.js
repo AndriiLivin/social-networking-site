@@ -100,23 +100,23 @@ const usersReduser = (state = initialState, action) => {
     // break;
   }
 };
-export const followACreator = (userId) => ({ type: FOLLOW, userId });
-export const unfollowACreator = (userId) => ({ type: UNFOLLOW, userId });
+export const follow_AC = (userId) => ({ type: FOLLOW, userId });
+export const unfollow = (userId) => ({ type: UNFOLLOW, userId });
 
 // заполняем пользователей
-export const setUsersACreator = (users) => {
+export const setUsers = (users) => {
   return { type: SET_USERS, users };
 };
 // устанавливаем тукущую страницу
-export const setCurrentPageAC = (currentPage) => {
+export const setCurrentPage = (currentPage) => {
   return { type: SET_CURRENT_PAGE, currentPage };
 };
 
-export const setUsersTotalCountAC = (count) => {
+export const setUsersTotalCount = (count) => {
   return { type: SET_TOTAL_USERS_COUNT, count };
 };
 
-export const toggleIsFetchingAC = (isFetching) => {
+export const toggleIsFetching = (isFetching) => {
   return { type: TOGGLE_IS_FETCHING, isFetching };
 };
 
