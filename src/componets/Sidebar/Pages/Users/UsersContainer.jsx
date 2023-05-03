@@ -8,18 +8,27 @@ import {
   unfollowACreator,
   setCurrentPageAC,
   setUsersTotalCountAC,
+  toggleIsFetchingAC,
 } from "../../../../redux/usersReducer";
 import axios from "axios";
 import UsersFunctionComponent from "./UsersFunctionComponent";
+import Preloader from "../../../Common/Preloader/preloader";
+
+
 
 // Называем API т.к. связывает между собой container и UsersFunctionComponent
 class UsersAPIComponent extends React.Component {
   componentDidMount() {
+    // при запросе включаем крутилку
+    this.props.toggleIsFetching(true);
 
     this.props.setCurrentPage(1);
     axios
       .get(" https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases")
       .then((response) => {
+        // когда приходит ответ выключаем крутилку
+        this.props.toggleIsFetching(false);
+
         let data = [];
 
         for (let i = 0; i < this.props.pageSize; i++) {
@@ -44,6 +53,8 @@ class UsersAPIComponent extends React.Component {
   }
 
   onPageChanged = (pageNumber) => {
+    // при запросе включаем крутилку
+    this.props.toggleIsFetching(true);
     this.props.setCurrentPage(pageNumber);
 
     // axios
@@ -56,6 +67,8 @@ class UsersAPIComponent extends React.Component {
     axios
       .get(`https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases`)
       .then((response) => {
+        // когда приходит ответ выключаем крутилку
+        this.props.toggleIsFetching(false);
         let data = [];
         const iMax =
           this.props.pageSize * pageNumber < this.props.totalUsersCount
@@ -76,15 +89,21 @@ class UsersAPIComponent extends React.Component {
   // сначала вызывается render = (), а потом только componentDidMount()
   render = () => {
     return (
-      <UsersFunctionComponent
-        totalUsersCount={this.props.totalUsersCount}
-        pageSize={this.props.pageSize}
-        currentPage={this.props.currentPage}
-        onPageChanged={this.onPageChanged}
-        users={this.props.users}
-        follow={this.props.follow}
-        unfollow={this.props.unfollow}
-      />
+      // заглушка
+      <>
+        {this.props.isFetching ? (
+          <Preloader />
+        ) : null}
+        <UsersFunctionComponent
+          totalUsersCount={this.props.totalUsersCount}
+          pageSize={this.props.pageSize}
+          currentPage={this.props.currentPage}
+          onPageChanged={this.onPageChanged}
+          users={this.props.users}
+          follow={this.props.follow}
+          unfollow={this.props.unfollow}
+        />
+      </>
     );
   };
 }
@@ -98,6 +117,7 @@ const mapStateToProps = (state) => {
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
+    isFetching: state.usersPage.isFetching,
   };
 };
 
@@ -122,6 +142,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setTotalUsersCount: (totalCount) => {
       dispatch(setUsersTotalCountAC(totalCount));
+    },
+    toggleIsFetching: (isFetching) => {
+      dispatch(toggleIsFetchingAC(isFetching));
     },
   };
 };

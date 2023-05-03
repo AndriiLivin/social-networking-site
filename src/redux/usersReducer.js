@@ -4,7 +4,10 @@ const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
 
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
+
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
 // создается как бы шаблон, достаточно одного элемента
 let initialState = {
@@ -14,6 +17,7 @@ let initialState = {
   pageSize: 3,
   totalUsersCount: 0,
   currentPage: 1,
+  isFetching: false,
 };
 
 const usersReduser = (state = initialState, action) => {
@@ -84,6 +88,13 @@ const usersReduser = (state = initialState, action) => {
       };
     // break;
 
+    case TOGGLE_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+      };
+    // break;
+
     default:
       return state;
     // break;
@@ -103,6 +114,10 @@ export const setCurrentPageAC = (currentPage) => {
 
 export const setUsersTotalCountAC = (count) => {
   return { type: SET_TOTAL_USERS_COUNT, count };
+};
+
+export const toggleIsFetchingAC = (isFetching) => {
+  return { type: TOGGLE_IS_FETCHING, isFetching };
 };
 
 export default usersReduser;

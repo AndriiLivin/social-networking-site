@@ -1,0 +1,53 @@
+.spinner_base {
+  position: absolute;
+   top: 100px;
+   left: 50%;
+ 
+  transform: scale(0.2);
+}
+
+.spinner {
+
+  margin: 0 auto;
+
+  width: 300px;
+  height: 150px;
+
+  border-top: 150px solid white;
+  border-radius: 50%;
+
+  background-color: black;
+
+  animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.circle_white {
+  margin-left: 150px;
+  margin-top: -75px;
+
+  width: 60px;
+  height: 60px;
+
+  border: 45px solid white;
+  border-radius: 50%;
+
+  background-color: black;
+}
+.circle_black {
+  margin-left: 0px;
+  margin-top: -150px;
+
+  width: 60px;
+  height: 60px;
+
+  border: 45px solid black;
+  border-radius: 50%;
+
+  background-color: white;
+}
