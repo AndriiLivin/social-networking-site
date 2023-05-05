@@ -3,14 +3,14 @@ import style from "./UsersFunctionComponent.module.css";
 // import axios, { Axios } from "axios";
 // import axios from "axios";
 import userFotoBlank from "../Users/userFotoBlank.jpg";
+import { NavLink } from "react-router-dom";
 
 // определяем чистую функциональную компоненту
 // получает props и выдает jsx
 let UsersFunctionComponent = (props) => {
-
   // считаем количество кнопок в пагинации
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
- 
+
   // создаем массив страниц для отображения
   const pages = [];
   for (let index = 1; index <= pagesCount; index++) {
@@ -44,17 +44,16 @@ let UsersFunctionComponent = (props) => {
           <div key={u.id}>
             <span>
               <div>
-                <img
-                  className={style.photo}
-                  src={
-                    u.photosSmall != null
-                      ? u.photosSmall
-                      : // : "https://klike.net/uploads/posts/2019-03/1551511827_30.jpg"
-                        // или
-                        userFotoBlank
-                  }
-                  alt=""
-                />
+                {/* <NavLink> по сути тег <a></a> и там добавлена инкапсулировваная логика */}
+                {/* Если после  /Profile стоит любая дичь без пробелов, 
+                то /Profile подгружается все равно*/}
+                <NavLink to={"/Profile/"+u.id}>
+                  <img
+                    className={style.photo}
+                    src={u.photosLarge != null ? u.photosLarge : userFotoBlank}
+                    alt=""
+                  />
+                </NavLink>
               </div>
               {/* выводим на кнопку нужное состояние */}
               <div>
