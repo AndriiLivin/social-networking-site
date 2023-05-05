@@ -1,10 +1,32 @@
 .profile img {
   width: 100%;
 }
+.description {
+  display: flex;
+
+  align-items: flex-end;
+}
 
 .ava {
+  align-self: start;
   padding: 10px;
-  font-size: 44px;
-  letter-spacing: 12px;
+  font-size: 16px;
+}
+.foto {
+  padding: 10px;
+  font-size: 26px;
+  color: maroon;
+}
+.title_text {
+  padding: 10px;
+  font-size: 26px;
+  letter-spacing: 8px;
+  color: maroon;
+}
+
+.text {
+  padding: 10px;
+  font-size: 16px;
+
   color: rgb(72, 108, 109);
 }
