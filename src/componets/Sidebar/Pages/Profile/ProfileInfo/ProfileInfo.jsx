@@ -7,7 +7,7 @@ const ProfileInfo = (props) => {
   if (!props.profile) {
     return <Preloader />;
   }
-  console.log(props.profile);
+
   return (
     <section>
       <div className={style.profile}>
@@ -33,7 +33,7 @@ const ProfileInfo = (props) => {
           <div className={style.title_text}>Меня зовут:</div>
           <div>{props.profile.name}</div>
           <br />
-          <div className={style.title_text}>Статус:</div>
+          <div className={style.title_text}>Мой статус:</div>
           <div>{props.profile.status}</div>
         </div>
 

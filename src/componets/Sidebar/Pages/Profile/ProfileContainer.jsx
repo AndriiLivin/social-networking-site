@@ -8,10 +8,30 @@ import { connect } from "react-redux";
 
 import { setUserProfile } from "../../../../redux/profileReducer";
 
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+
+// wrapper to use react router's v6 hooks in class component
+// (to use HOC pattern, like in router v5)
+function withRouter(ComponentW) {
+  function ComponentWithRouterProp(props) {
+    let location = useLocation();
+    let navigate = useNavigate();
+    let params = useParams();
+    return <ComponentW {...props} router1={{ location, navigate, params }} />;
+  }
+
+  return ComponentWithRouterProp;
+}
+
 class ProfileContainer extends React.Component {
   componentDidMount() {
+    let profileId = this.props.router1.params.userId;
+
     axios
-      .get(`https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/1`)
+      // .get(`https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/1`)
+      .get(
+        `https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${profileId}`
+      )
       .then((response) => {
         this.props.setUserProfile(response.data);
       });
@@ -34,4 +54,4 @@ let mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   setUserProfile,
-})(ProfileContainer);
+})(withRouter(ProfileContainer));
