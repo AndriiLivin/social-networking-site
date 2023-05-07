@@ -3,14 +3,15 @@ import dialogsReducer from "./dialogsReducer";
 import profileReducer from "./profileReducer";
 import sidebarReducer from "./sidebarReducer";
 import usersReduser from "./usersReducer";
+import authReduser from "./authReducer";
 
 
 let reducers = combineReducers({
-  
   profilePage: profileReducer,
   messagesPage: dialogsReducer,
   sidebar: sidebarReducer,
   usersPage: usersReduser,
+  auth: authReduser,
 });
 
 // создается state из частей

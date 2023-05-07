@@ -25,12 +25,16 @@ function withRouter(ComponentW) {
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    let profileId = this.props.router1.params.userId;
+
+    let profileId = this.props.router1.params.userId || 1;
+    // profileId = profileId ? profileId : 2;
 
     axios
       // .get(`https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/1`)
+      // .get(
+      //   `https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${profileId}`
       .get(
-        `https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${profileId}`
+        `https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/` + profileId
       )
       .then((response) => {
         this.props.setUserProfile(response.data);
