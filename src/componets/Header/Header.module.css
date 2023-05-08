@@ -1,16 +1,30 @@
 .header {
+  /* display: flex;
+justify-content: space-between; */
   grid-area: h;
   background-color: #8191b3;
-
 }
-.header img{
- width: 50px; 
-}
-
-.loginBlock{
-float: right;
+.imageLogo {
+  margin: 5px;
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
 }
 
-.loginBlock a{
-color:maroon
+.loginBlock {
+  float: right;
+}
+
+.textBlock {
+  float: right;
+  padding: 5px 15px;
+  color: maroon;
+}
+
+.imageBlock {
+  width: 65px;
+  height: 65px;
+  margin: 5px;
+  border: 2px solid maroon;
+  border-radius: 12px;
 }
