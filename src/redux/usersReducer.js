@@ -8,6 +8,7 @@ const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
+const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS";
 
 // создается как бы шаблон, достаточно одного элемента
 let initialState = {
@@ -18,6 +19,7 @@ let initialState = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
+  followingInProgress: [],
 };
 
 const usersReduser = (state = initialState, action) => {
@@ -94,6 +96,15 @@ const usersReduser = (state = initialState, action) => {
         isFetching: action.isFetching,
       };
     // break;
+    case TOGGLE_IS_FOLLOWING_PROGRESS:
+      return {
+        ...state,
+        followingInProgress: action.inProgress
+          ? [...state.followingInProgress, action.userId]
+          : // .filter вернет новый массив, поэтому не спредим ...
+            state.followingInProgress.filter((id) => id != action.userId),
+      };
+    // break;
 
     default:
       return state;
@@ -118,6 +129,9 @@ export const setUsersTotalCount = (count) => {
 
 export const toggleIsFetching = (isFetching) => {
   return { type: TOGGLE_IS_FETCHING, isFetching };
+};
+export const toggleFollowingInProgress = (inProgress, userId) => {
+  return { type: TOGGLE_IS_FOLLOWING_PROGRESS, inProgress, userId };
 };
 
 export default usersReduser;
