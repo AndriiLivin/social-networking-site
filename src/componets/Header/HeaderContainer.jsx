@@ -1,8 +1,11 @@
 import React from "react";
 import Header from "./Header";
-import axios from "axios";
+// import axios from "axios";
 import { connect } from "react-redux";
 import { UserData, setAuthUserData } from "../../redux/authReducer";
+import { usersAPI } from "../../Api/api";
+
+export let myData;
 
 class HeaderContainer extends React.Component {
   componentDidMount() {
@@ -21,29 +24,30 @@ class HeaderContainer extends React.Component {
     //   "id": "29001"
     //  }
 
-    axios
-      .get(" https://social-network.samuraijs.com/api/1.0/auth/me", {
-        withCredentials: true,
-      })
-      //  withCredentials - спец.объект, в котором сидят настройки запроса
-
-      .then((response) => {
-        if (response.data.resultCode === 0) {
-          // проводим деструктуризацию объукта response.data
-          let { id, login, email } = response.data.data;
-          this.props.setAuthUserData(id, login, email);
-          // получаем данные прользователя по его id
-          axios
-            .get(
-              "https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/" + id
-            )
-            .then((respons1) => {
-              if (respons1.status === 200) {
-                this.props.UserData(respons1.data);
-              }
-            });
-        }
-      });
+    // axios
+    //   .get(" https://social-network.samuraijs.com/api/1.0/auth/me", {
+    //     withCredentials: true,
+    //   })
+    //  withCredentials - спец.объект, в котором сидят настройки запроса
+    usersAPI.getAuthMe().then((response) => {
+      if (response.resultCode === 0) {
+        // проводим деструктуризацию объукта response.data
+        let { id, login, email } = response.data;
+        this.props.setAuthUserData(id, login, email);
+        // получаем данные прользователя по его id
+        // axios
+        //   .get(
+        //     "https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/" + id
+        //   )
+        usersAPI.getUserOnId(id).then((respons1) => {
+          if (respons1.status === 200) {
+            myData = respons1.data;
+            console.log(myData);
+            this.props.UserData(respons1.data);
+          }
+        });
+      }
+    });
   }
 
   render() {

@@ -4,7 +4,8 @@ import style from "./UsersFunctionComponent.module.css";
 // import axios from "axios";
 import userFotoBlank from "../Users/userFotoBlank.jpg";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
+import { usersAPI } from "../../../../Api/api";
 
 // определяем чистую функциональную компоненту
 // получает props и выдает jsx
@@ -51,7 +52,7 @@ let UsersFunctionComponent = (props) => {
                 <NavLink to={"/Profile/" + u.id}>
                   <img
                     className={style.photo}
-                    src={u.photosLarge != null ? u.photosLarge : userFotoBlank}
+                    src={u.avatar != null ? u.avatar : userFotoBlank}
                     alt=""
                   />
                 </NavLink>
@@ -61,31 +62,32 @@ let UsersFunctionComponent = (props) => {
                 {u.followed ? (
                   <button
                     onClick={() => {
-                      axios
-                        // .delete(
-                        //   ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
-                        //   {
-                        //     withCredentials: true,
-                        //     headers: {
-                        //       "API-KEY": "da348022-003c-4c1b-9e99-dc746465860c",
-                        //     },
-                        //   }
-                        // )
-                        // .then((response) => {
-                        //   if (response.status === 200) {
-                        //     props.unfollow(u.id);
-                        //   }
-                        // });
-                        .put(
-                          ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
-                          { followed: false }
-                        )
-                        .then((response) => {
-                          console.log(response);
-                          if (response.status === 200) {
-                            props.unfollow(u.id);
-                          }
-                        });
+                      // axios
+                      // .delete(
+                      //   ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
+                      //   {
+                      //     withCredentials: true,
+                      //     headers: {
+                      //       "API-KEY": "da348022-003c-4c1b-9e99-dc746465860c",
+                      //     },
+                      //   }
+                      // )
+                      // .then((response) => {
+                      //   if (response.status === 200) {
+                      //     props.unfollow(u.id);
+                      //   }
+                      // });
+
+                      //   .put(
+                      //     ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
+                      //     { followed: false }
+                      // )
+                      usersAPI.setFollow(u.id, false).then((response) => {
+                        console.log(response);
+                        if (response.status === 200) {
+                          props.unfollow(u.id);
+                        }
+                      });
                     }}
                   >
                     Unfollow{" "}
@@ -93,26 +95,27 @@ let UsersFunctionComponent = (props) => {
                 ) : (
                   <button
                     onClick={() => {
-                      axios
-                        // .post(
-                        //   ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
-                        //   {},
-                        //   {
-                        //     withCredentials: true,
-                        //     headers: {
-                        //       "API-KEY": "da348022-003c-4c1b-9e99-dc746465860c",
-                        //     },
-                        //   }
-                        // )
-                        .put(
-                          ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
-                          { followed: true }
-                        )
-                        .then((response) => {
-                          if (response.status === 200) {
-                            props.follow(u.id);
-                          }
-                        });
+                      // axios
+                      // .post(
+                      //   ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
+                      //   {},
+                      //   {
+                      //     withCredentials: true,
+                      //     headers: {
+                      //       "API-KEY": "da348022-003c-4c1b-9e99-dc746465860c",
+                      //     },
+                      //   }
+                      // )
+
+                      //   .put(
+                      //     ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
+                      //     { followed: true }
+                      // )
+                      usersAPI.setFollow(u.id, true).then((response) => {
+                        if (response.status === 200) {
+                          props.follow(u.id);
+                        }
+                      });
                     }}
                   >
                     Follow

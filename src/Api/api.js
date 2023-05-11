@@ -16,6 +16,13 @@ const instance = axios.create({
   // },
 });
 
+const instanceAuthMe = axios.create({
+  // писать с большой буквы URL
+  baseURL: "https://social-network.samuraijs.com/api/1.0/",
+  withCredentials: true,
+});
+
+
 export const usersAPI = {
   getUsers(currentPage = 1, pageSize = 3) {
     return (
@@ -23,7 +30,7 @@ export const usersAPI = {
       //  в instance уже забит базовый URL, поэтому его не пишем в самом запросе
       instance
         .get("bases")
-        // сюда приходит сполный сложный response
+        // сюда приходит полный сложный response
         // а из него нужно только data
         .then((response) => {
           return response.data;
@@ -31,9 +38,28 @@ export const usersAPI = {
     );
   },
 
-  // axios
-  //   .get(
-  //     `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize},
-  // {withCredentials: true}`
-  //   )
+  getUserOnId(id = 1) {
+    return (
+      // axios
+      //  в instance уже забит базовый URL, поэтому его не пишем в самом запросе
+      instance.get("bases/" + id)
+      // возвращаем весь response т.к. нужно status: 200
+      // .then((response) => {
+      //   return response;
+      // })
+    );
+  },
+
+  getAuthMe() {
+    return instanceAuthMe.get("auth/me").then((response) => {
+      return response.data;
+    });
+  },
+
+  setFollow(id, trueOrFalse) {
+    return (
+      instance.put("bases/" + id, { followed: trueOrFalse })
+      // возвращаем весь response 
+    );
+  },
 };
