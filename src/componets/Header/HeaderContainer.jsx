@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { UserData, setAuthUserData } from "../../redux/authReducer";
 import { usersAPI } from "../../Api/api";
 
-export let myData;
 
 class HeaderContainer extends React.Component {
   componentDidMount() {
@@ -41,8 +40,6 @@ class HeaderContainer extends React.Component {
         //   )
         usersAPI.getUserOnId(id).then((respons1) => {
           if (respons1.status === 200) {
-            myData = respons1.data;
-            console.log(myData);
             this.props.UserData(respons1.data);
           }
         });

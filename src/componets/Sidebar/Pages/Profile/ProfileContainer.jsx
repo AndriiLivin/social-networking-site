@@ -10,7 +10,7 @@ import { setUserProfile } from "../../../../redux/profileReducer";
 
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { usersAPI } from "../../../../Api/api";
-import { myData } from "../../../Header/HeaderContainer";
+
 
 // wrapper to use react router's v6 hooks in class component
 // (to use HOC pattern, like in router v5)
@@ -27,7 +27,7 @@ function withRouter(ComponentW) {
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    let profileId = this.props.router1.params.userId || myData.id;
+    let profileId = this.props.router1.params.userId || 1;
     // profileId = profileId ? profileId : 2;
 
     // axios
