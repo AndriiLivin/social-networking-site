@@ -27,7 +27,7 @@ function withRouter(ComponentW) {
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    let profileId = this.props.router1.params.userId || 1;
+    let profileId = this.props.router1.params.userId || 29001;
     // profileId = profileId ? profileId : 2;
 
     // axios

@@ -4,91 +4,94 @@ import React from "react";
 import { connect } from "react-redux";
 import {
   follow_AC,
-  setUsers,
+  // setUsers,
   unfollow,
-  setCurrentPage,
-  setUsersTotalCount,
-  toggleIsFetching,
+  // setCurrentPage,
+  // setUsersTotalCount,
+  // toggleIsFetching,
   toggleFollowingInProgress,
+  getUsersThunkCreator,
 } from "../../../../redux/usersReducer";
 // import axios from "axios";
 import UsersFunctionComponent from "./UsersFunctionComponent";
 import Preloader from "../../../Common/Preloader/preloader";
-import { usersAPI } from "../../../../Api/api";
+// import { usersAPI } from "../../../../Api/api";
 
 // Называем API т.к. связывает между собой container и UsersFunctionComponent
 class UsersAPIComponent extends React.Component {
   componentDidMount() {
-    // при запросе включаем крутилку
-    this.props.toggleIsFetching(true);
+    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    // // при запросе включаем крутилку
+    // this.props.toggleIsFetching(true);
 
-    this.props.setCurrentPage(1);
+    // this.props.setCurrentPage(1);
 
-    // axios
-    //   .get(" https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases")
+    // // axios
+    // //   .get(" https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases")
 
-    // getUsers(this.props.currentPage, this.props.pageSize).then((response) => {
-    usersAPI
-      .getUsers(this.props.currentPage, this.props.pageSize)
-      .then((respData) => {
-        // когда приходит ответ выключаем крутилку
-        this.props.toggleIsFetching(false);
+    // // getUsers(this.props.currentPage, this.props.pageSize).then((response) => {
+    // usersAPI
+    //   .getUsers(this.props.currentPage, this.props.pageSize)
+    //   .then((respData) => {
+    //     // когда приходит ответ выключаем крутилку
+    //     this.props.toggleIsFetching(false);
 
-        let data = [];
+    //     let data = [];
 
-        for (let i = 0; i < this.props.pageSize; i++) {
-          // data.push(response.data[i]);
-          data = [...data, respData[i]];
-        }
-        // props становится свойством объекта, поэтому нужно писать this.props
+    //     for (let i = 0; i < this.props.pageSize; i++) {
+    //       // data.push(response.data[i]);
+    //       data = [...data, respData[i]];
+    //     }
+    //     // props становится свойством объекта, поэтому нужно писать this.props
 
-        // this.props.setUsers(response.data);
-        this.props.setUsers(data);
+    //     // this.props.setUsers(response.data);
+    //     this.props.setUsers(data);
 
-        this.props.setUsersTotalCount(respData.length);
-      });
-    // axios
-    //   .get(
-    //     `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
-    //   )
-    //   .then((response) => {
-    //     this.props.setUsers(response.data.items);
-    //     this.props.setTotalUsersCount(response.data.totalCount);
+    //     this.props.setUsersTotalCount(respData.length);
     //   });
+    // // axios
+    // //   .get(
+    // //     `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
+    // //   )
+    // //   .then((response) => {
+    // //     this.props.setUsers(response.data.items);
+    // //     this.props.setTotalUsersCount(response.data.totalCount);
+    // //   });
   }
 
   onPageChanged = (pageNumber) => {
-    // при запросе включаем крутилку
-    this.props.toggleIsFetching(true);
-    this.props.setCurrentPage(pageNumber);
+    this.props.getUsers(pageNumber, this.props.pageSize);
+    // // при запросе включаем крутилку
+    // this.props.toggleIsFetching(true);
+    // this.props.setCurrentPage(pageNumber);
 
-    // axios
-    //   .get(
-    //     `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`
-    //   )
-    //   .then((response) => {
-    //     this.props.setUsers(response.data.items);
+    // // axios
+    // //   .get(
+    // //     `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`
+    // //   )
+    // //   .then((response) => {
+    // //     this.props.setUsers(response.data.items);
+    // //   });
+
+    // usersAPI
+    //   .getUsersAPI(pageNumber, this.props.pageSize)
+    //   // axios
+    //   //   .get(`https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases`)
+    //   .then((respData) => {
+    //     // когда приходит ответ выключаем крутилку
+    //     this.props.toggleIsFetching(false);
+    //     let data = [];
+    //     const iMax =
+    //       this.props.pageSize * pageNumber < this.props.totalUsersCount
+    //         ? this.props.pageSize * pageNumber
+    //         : this.props.totalUsersCount;
+
+    //     for (let i = this.props.pageSize * (pageNumber - 1); i < iMax; i++) {
+    //       data.push(respData[i]);
+    //     }
+    //     // this.props.setUsers(response.data.items);
+    //     this.props.setUsers(data);
     //   });
-
-    usersAPI
-      .getUsers(pageNumber, this.props.pageSize)
-      // axios
-      //   .get(`https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases`)
-      .then((respData) => {
-        // когда приходит ответ выключаем крутилку
-        this.props.toggleIsFetching(false);
-        let data = [];
-        const iMax =
-          this.props.pageSize * pageNumber < this.props.totalUsersCount
-            ? this.props.pageSize * pageNumber
-            : this.props.totalUsersCount;
-
-        for (let i = this.props.pageSize * (pageNumber - 1); i < iMax; i++) {
-          data.push(respData[i]);
-        }
-        // this.props.setUsers(response.data.items);
-        this.props.setUsers(data);
-      });
   };
 
   // props в рендер не приходят
@@ -109,7 +112,7 @@ class UsersAPIComponent extends React.Component {
           users={this.props.users}
           follow={this.props.follow}
           unfollow={this.props.unfollow}
-          toggleFollowingInProgress={this.props.toggleFollowingInProgress}
+          // toggleFollowingInProgress={this.props.toggleFollowingInProgress}
           followingInProgress={this.props.followingInProgress}
         />
       </>
@@ -185,15 +188,17 @@ const UsersContainer = connect(mapStateToProps, {
 
   unfollow,
 
-  setUsers,
+  // setUsers,
 
-  setCurrentPage,
+  // setCurrentPage,
 
-  setUsersTotalCount,
+  // setUsersTotalCount,
 
-  toggleIsFetching,
+  // toggleIsFetching,
 
   toggleFollowingInProgress,
+  // создаем колбэк getUsers, который внутри себя диспачит санку getUsersThunkCreator
+  getUsers: getUsersThunkCreator,
 })(UsersAPIComponent);
 
 export default UsersContainer;

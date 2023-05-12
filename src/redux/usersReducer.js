@@ -1,3 +1,5 @@
+import { usersAPI } from "../Api/api";
+
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 
@@ -102,7 +104,7 @@ const usersReduser = (state = initialState, action) => {
         followingInProgress: action.inProgress
           ? [...state.followingInProgress, action.userId]
           : // .filter вернет новый массив, поэтому не спредим ...
-            state.followingInProgress.filter((id) => id != action.userId),
+            state.followingInProgress.filter((id) => id !== action.userId),
       };
     // break;
 
@@ -111,8 +113,10 @@ const usersReduser = (state = initialState, action) => {
     // break;
   }
 };
-export const follow_AC = (userId) => ({ type: FOLLOW, userId });
-export const unfollow = (userId) => ({ type: UNFOLLOW, userId });
+
+// экшен криэйторы
+export const followSuccess = (userId) => ({ type: FOLLOW, userId });
+export const unfollowSuccess = (userId) => ({ type: UNFOLLOW, userId });
 
 // заполняем пользователей
 export const setUsers = (users) => {
@@ -130,8 +134,78 @@ export const setUsersTotalCount = (count) => {
 export const toggleIsFetching = (isFetching) => {
   return { type: TOGGLE_IS_FETCHING, isFetching };
 };
+
 export const toggleFollowingInProgress = (inProgress, userId) => {
   return { type: TOGGLE_IS_FOLLOWING_PROGRESS, inProgress, userId };
+};
+
+//ThunkCreator
+export const getUsersThunkCreator = (currentPage = 1, pageSize = 3) => {
+  return (dispatch) => {
+    // при запросе включаем крутилку
+    // this.props.toggleIsFetching(true);
+    // т.к. находится прямо тут
+    dispatch(toggleIsFetching(true));
+    // записываем текущую страницу
+    dispatch(setCurrentPage(currentPage));
+
+    usersAPI
+      // .getUsers(this.props.currentPage, this.props.pageSize)
+      .getUsersAPI(currentPage, pageSize)
+      .then((respData) => {
+        // когда приходит ответ выключаем крутилку
+        dispatch(toggleIsFetching(false));
+
+        let data = [];
+        const iMax =
+          pageSize * currentPage < respData.length
+            ? pageSize * currentPage
+            : respData.length;
+
+        for (let i = pageSize * (currentPage - 1); i < iMax; i++) {
+          // data.push(respData[i]);
+          data = [...data, respData[i]];
+        }
+
+        dispatch(setUsers(data));
+
+        dispatch(setUsersTotalCount(respData.length));
+      });
+  };
+};
+
+//ThunkCreator
+export const follow_AC = (userId) => {
+  return (dispatch) => {
+    // начинается асинхронный запрос
+    dispatch(toggleFollowingInProgress(true, userId));
+
+    usersAPI.setFollow(userId, true).then((response) => {
+      if (response.status === 200) {
+        dispatch(followSuccess(userId));
+      }
+
+      // заканчивается асинхронный запрос
+      dispatch(toggleFollowingInProgress(false, userId));
+    });
+  };
+};
+
+//ThunkCreator
+export const unfollow = (userId) => {
+  return (dispatch) => {
+    // начинается асинхронный запрос
+    dispatch(toggleFollowingInProgress(true, userId));
+
+    usersAPI.setFollow(userId, false).then((response) => {
+      if (response.status === 200) {
+        dispatch(unfollowSuccess(userId));
+      }
+
+      // заканчивается асинхронный запрос
+      dispatch(toggleFollowingInProgress(false, userId));
+    });
+  };
 };
 
 export default usersReduser;

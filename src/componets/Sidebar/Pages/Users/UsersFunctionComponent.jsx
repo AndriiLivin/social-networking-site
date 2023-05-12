@@ -6,7 +6,7 @@ import userFotoBlank from "../Users/userFotoBlank.jpg";
 import { NavLink } from "react-router-dom";
 // import axios from "axios";
 import { usersAPI } from "../../../../Api/api";
-import { toggleFollowingInProgress } from "../../../../redux/usersReducer";
+// import { toggleFollowingInProgress } from "../../../../redux/usersReducer";
 
 // определяем чистую функциональную компоненту
 // получает props и выдает jsx
@@ -66,36 +66,34 @@ let UsersFunctionComponent = (props) => {
                       (id) => id === u.id
                     )}
                     onClick={() => {
-                      // начинается асинхронный запрос
-                      props.toggleFollowingInProgress(true, u.id);
-                      // axios
-                      // .delete(
-                      //   ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
-                      //   {
-                      //     withCredentials: true,
-                      //     headers: {
-                      //       "API-KEY": "da348022-003c-4c1b-9e99-dc746465860c",
-                      //     },
-                      //   }
-                      // )
-                      // .then((response) => {
+                      props.unfollow(u.id);
+                      // // axios
+                      // // .delete(
+                      // //   ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
+                      // //   {
+                      // //     withCredentials: true,
+                      // //     headers: {
+                      // //       "API-KEY": "da348022-003c-4c1b-9e99-dc746465860c",
+                      // //     },
+                      // //   }
+                      // // )
+                      // // .then((response) => {
+                      // //   if (response.status === 200) {
+                      // //     props.unfollow(u.id);
+                      // //   }
+                      // // });
+
+                      // //   .put(
+                      // //     ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
+                      // //     { followed: false }
+                      // // )
+                      // usersAPI.setFollow(u.id, false).then((response) => {
                       //   if (response.status === 200) {
                       //     props.unfollow(u.id);
                       //   }
+                      //   // заканчивается асинхронный запрос
+                      //   props.toggleFollowingInProgress(false, u.id);
                       // });
-
-                      //   .put(
-                      //     ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
-                      //     { followed: false }
-                      // )
-                      usersAPI.setFollow(u.id, false).then((response) => {
-                        console.log(response);
-                        if (response.status === 200) {
-                          props.unfollow(u.id);
-                        }
-                        // заканчивается асинхронный запрос
-                        props.toggleFollowingInProgress(false, u.id);
-                      });
                     }}
                   >
                     Unfollow{" "}
@@ -106,31 +104,30 @@ let UsersFunctionComponent = (props) => {
                       (id) => id === u.id
                     )}
                     onClick={() => {
-                      // начинается асинхронный запрос
-                      props.toggleFollowingInProgress(true, u.id);
-                      // axios
-                      // .post(
-                      //   ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
-                      //   {},
-                      //   {
-                      //     withCredentials: true,
-                      //     headers: {
-                      //       "API-KEY": "da348022-003c-4c1b-9e99-dc746465860c",
-                      //     },
-                      //   }
-                      // )
+                      props.follow(u.id);
+                      // // axios
+                      // // .post(
+                      // //   ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
+                      // //   {},
+                      // //   {
+                      // //     withCredentials: true,
+                      // //     headers: {
+                      // //       "API-KEY": "da348022-003c-4c1b-9e99-dc746465860c",
+                      // //     },
+                      // //   }
+                      // // )
 
-                      //   .put(
-                      //     ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
-                      //     { followed: true }
-                      // )
-                      usersAPI.setFollow(u.id, true).then((response) => {
-                        if (response.status === 200) {
-                          props.follow(u.id);
-                        }
-                        // заканчивается асинхронный запрос
-                        props.toggleFollowingInProgress(false, u.id);
-                      });
+                      // //   .put(
+                      // //     ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
+                      // //     { followed: true }
+                      // // )
+                      // usersAPI.setFollow(u.id, true).then((response) => {
+                      //   if (response.status === 200) {
+                      //     props.follow(u.id);
+                      //   }
+                      //   // заканчивается асинхронный запрос
+                      //   props.toggleFollowingInProgress(false, u.id);
+                      // });
                     }}
                   >
                     Follow

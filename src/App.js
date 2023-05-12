@@ -25,6 +25,7 @@ const App = () => {
 
       <main className="App-wrapper__pages">
         <Routes>
+          {/* знак ? означает, что параметр :userId? не обязательный */}
           <Route path="/Profile/:userId?" element={<ProfileContainer />} />
 
           <Route path="/Dialogs/*" element={<DialogsContainer />} />

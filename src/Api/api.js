@@ -2,6 +2,8 @@ import axios from "axios";
 
 // const baseURL = "https://643e90e66c30feced82c8d63.mockapi.io/seria/0/";
 
+// instance - это экземпляр;
+
 const instance = axios.create({
   // писать с большой буквы URL
   baseURL: "https://643e90e66c30feced82c8d63.mockapi.io/seria/0/",
@@ -22,9 +24,9 @@ const instanceAuthMe = axios.create({
   withCredentials: true,
 });
 
-
 export const usersAPI = {
-  getUsers(currentPage = 1, pageSize = 3) {
+  getUsersAPI(currentPage = 1, pageSize = 3) {
+    // в моем случае currentPage = 1, pageSize = 3 не используется
     return (
       // axios
       //  в instance уже забит базовый URL, поэтому его не пишем в самом запросе
@@ -57,9 +59,7 @@ export const usersAPI = {
   },
 
   setFollow(id, trueOrFalse) {
-    return (
-      instance.put("bases/" + id, { followed: trueOrFalse })
-      // возвращаем весь response 
-    );
+    return instance.put("bases/" + id, { followed: trueOrFalse });
+    // возвращаем весь response
   },
 };
