@@ -1,15 +1,9 @@
 import React from "react";
 import style from "./UsersFunctionComponent.module.css";
-// import axios, { Axios } from "axios";
-// import axios from "axios";
+
 import userFotoBlank from "../Users/userFotoBlank.jpg";
 import { NavLink } from "react-router-dom";
-// import axios from "axios";
-// import { usersAPI } from "../../../../Api/api";
-// import { toggleFollowingInProgress } from "../../../../redux/usersReducer";
 
-// определяем чистую функциональную компоненту
-// получает props и выдает jsx
 let UsersFunctionComponent = (props) => {
   // считаем количество кнопок в пагинации
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -67,33 +61,6 @@ let UsersFunctionComponent = (props) => {
                     )}
                     onClick={() => {
                       props.unfollow(u.id);
-                      // // axios
-                      // // .delete(
-                      // //   ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
-                      // //   {
-                      // //     withCredentials: true,
-                      // //     headers: {
-                      // //       "API-KEY": "da348022-003c-4c1b-9e99-dc746465860c",
-                      // //     },
-                      // //   }
-                      // // )
-                      // // .then((response) => {
-                      // //   if (response.status === 200) {
-                      // //     props.unfollow(u.id);
-                      // //   }
-                      // // });
-
-                      // //   .put(
-                      // //     ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
-                      // //     { followed: false }
-                      // // )
-                      // usersAPI.setFollow(u.id, false).then((response) => {
-                      //   if (response.status === 200) {
-                      //     props.unfollow(u.id);
-                      //   }
-                      //   // заканчивается асинхронный запрос
-                      //   props.toggleFollowingInProgress(false, u.id);
-                      // });
                     }}
                   >
                     Unfollow{" "}
@@ -105,29 +72,6 @@ let UsersFunctionComponent = (props) => {
                     )}
                     onClick={() => {
                       props.follow(u.id);
-                      // // axios
-                      // // .post(
-                      // //   ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
-                      // //   {},
-                      // //   {
-                      // //     withCredentials: true,
-                      // //     headers: {
-                      // //       "API-KEY": "da348022-003c-4c1b-9e99-dc746465860c",
-                      // //     },
-                      // //   }
-                      // // )
-
-                      // //   .put(
-                      // //     ` https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${u.id}`,
-                      // //     { followed: true }
-                      // // )
-                      // usersAPI.setFollow(u.id, true).then((response) => {
-                      //   if (response.status === 200) {
-                      //     props.follow(u.id);
-                      //   }
-                      //   // заканчивается асинхронный запрос
-                      //   props.toggleFollowingInProgress(false, u.id);
-                      // });
                     }}
                   >
                     Follow

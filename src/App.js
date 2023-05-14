@@ -5,11 +5,11 @@ import { Route } from "react-router-dom";
 import "./App.css";
 
 import Footer from "./componets/Footer/Footer";
-// import Header from "./componets/Header/Header";
+
 import Music from "./componets/Sidebar/Pages/Music/Music";
 import News from "./componets/Sidebar/Pages/News/News";
 import Settings from "./componets/Sidebar/Pages/Settings/Settings";
-// import Profile from "./componets/Sidebar/Pages/Profile/Profile";
+
 import Sidebar from "./componets/Sidebar/Sidebar";
 import DialogsContainer from "./componets/Sidebar/Pages/Dialogs/DialogsContainer";
 import UsersContainer from "./componets/Sidebar/Pages/Users/UsersContainer";

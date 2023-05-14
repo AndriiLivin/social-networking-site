@@ -1,18 +1,12 @@
 import React from "react";
-
-// import ProfileInfo from "./ProfileInfo/ProfileInfo";
-// import MyPostsContainer from "./MyPosts/MyPostsContainer";
-// import axios from "axios";
 import Profile from "./Profile";
 import { connect } from "react-redux";
 
 import {
   getUserProfile,
-  // setUserProfile,
 } from "../../../../redux/profileReducer";
 
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-// import { usersAPI } from "../../../../Api/api";
 
 // wrapper to use react router's v6 hooks in class component
 // (to use HOC pattern, like in router v5)
@@ -32,18 +26,7 @@ class ProfileContainer extends React.Component {
     let profileId = this.props.router1.params.userId || 29001;
     // profileId = profileId ? profileId : 2;
 
-    // axios
-    //   // .get(`https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/1`)
-    //   // .get(
-    //     // `https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/${profileId}`
-    //   .get(
-    //     `https://643e90e66c30feced82c8d63.mockapi.io/seria/0/bases/` + profileId
-    // )
     this.props.getUserProfile(profileId);
-
-    // usersAPI.getUserOnId(profileId).then((response) => {
-    //   this.props.setUserProfile(response.data);
-    // });
   }
 
   render() {

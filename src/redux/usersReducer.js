@@ -12,10 +12,9 @@ const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS";
 
-// создается как бы шаблон, достаточно одного элемента
 let initialState = {
   users: [
-    // пустой массив для париема пользователей
+ 
   ],
   pageSize: 3,
   totalUsersCount: 0,
@@ -49,12 +48,11 @@ const usersReduser = (state = initialState, action) => {
           }
         ),
       };
-    // break;
+
 
     case UNFOLLOW:
       return {
         ...state,
-        // users: { ...state.users },
         users: state.users.map(
           // вызываем безимянную функцию
           (u) => {
@@ -66,38 +64,33 @@ const usersReduser = (state = initialState, action) => {
           }
         ),
       };
-    // break;
+
     case SET_USERS:
       return {
         ...state,
-        // берем существующий стайт и перетираем прользователей
-        // склейкой старых и пришедших
-        // users: [...state.users, ...action.users],
-
-        // уже этого не делаем
         users: [...action.users],
       };
-    // break;
+
     case SET_CURRENT_PAGE:
       return {
         ...state,
         currentPage: action.currentPage,
       };
-    // break;
+
 
     case SET_TOTAL_USERS_COUNT:
       return {
         ...state,
         totalUsersCount: action.count,
       };
-    // break;
+
 
     case TOGGLE_IS_FETCHING:
       return {
         ...state,
         isFetching: action.isFetching,
       };
-    // break;
+
     case TOGGLE_IS_FOLLOWING_PROGRESS:
       return {
         ...state,
@@ -106,11 +99,11 @@ const usersReduser = (state = initialState, action) => {
           : // .filter вернет новый массив, поэтому не спредим ...
             state.followingInProgress.filter((id) => id !== action.userId),
       };
-    // break;
+
 
     default:
       return state;
-    // break;
+
   }
 };
 
@@ -142,15 +135,13 @@ export const toggleFollowingInProgress = (inProgress, userId) => {
 //ThunkCreator
 export const getUsersThunkCreator = (currentPage = 1, pageSize = 3) => {
   return (dispatch) => {
-    // при запросе включаем крутилку
-    // this.props.toggleIsFetching(true);
-    // т.к. находится прямо тут
+
     dispatch(toggleIsFetching(true));
     // записываем текущую страницу
     dispatch(setCurrentPage(currentPage));
 
     usersAPI
-      // .getUsers(this.props.currentPage, this.props.pageSize)
+
       .getUsersAPI(currentPage, pageSize)
       .then((respData) => {
         // когда приходит ответ выключаем крутилку
