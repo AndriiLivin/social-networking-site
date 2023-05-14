@@ -52,10 +52,13 @@ export const usersAPI = {
     );
   },
 
+  // getAuthMe() {
+  //   return instanceAuthMe.get("auth/me").then((response) => {
+  //     return response.data;
+  //   });
+  // },
   getAuthMe() {
-    return instanceAuthMe.get("auth/me").then((response) => {
-      return response.data;
-    });
+    return instanceAuthMe.get("auth/me");
   },
 
   setFollow(id, trueOrFalse) {

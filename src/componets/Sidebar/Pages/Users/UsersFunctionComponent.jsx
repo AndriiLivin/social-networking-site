@@ -5,7 +5,7 @@ import style from "./UsersFunctionComponent.module.css";
 import userFotoBlank from "../Users/userFotoBlank.jpg";
 import { NavLink } from "react-router-dom";
 // import axios from "axios";
-import { usersAPI } from "../../../../Api/api";
+// import { usersAPI } from "../../../../Api/api";
 // import { toggleFollowingInProgress } from "../../../../redux/usersReducer";
 
 // определяем чистую функциональную компоненту

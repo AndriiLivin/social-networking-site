@@ -1,3 +1,5 @@
+import { usersAPI } from "../Api/api";
+
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
@@ -32,7 +34,7 @@ let initialState = {
     },
   ],
   newPostText: "",
-  profile:{},
+  profile: {},
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -81,9 +83,19 @@ export function upDateNewPostActionCreator(newPostText) {
     newText: newPostText,
   };
 }
+
 export const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,
   profile,
 });
+// это не экшенкриэйтор, а thunkCreator - это функция, которая возвращает  thunk
+// thunk - это функция, которая приниман dispath и
+// делает в нутри асинхронные операции и мелкие dispath и экшены
+export const getUserProfile = (userId) => (dispath) => {
+  usersAPI.getUserOnId(userId).then((response) => {
+    dispath(setUserProfile(response.data));
+    //  this.props.setUserProfile(response.data);
+  });
+};
 
 export default profileReducer;

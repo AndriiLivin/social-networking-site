@@ -3,10 +3,10 @@ import style from "./Header.module.css";
 import { NavLink } from "react-router-dom";
 
 const Header = (props) => {
-  console.log(props);
   return (
     <header className={style.header}>
-      <img className={style.imageLogo}
+      <img
+        className={style.imageLogo}
         alt=""
         src="https://play-lh.googleusercontent.com/ahJtMe0vfOlAu1XJVQ6rcaGrQBgtrEZQefHy7SXB7jpijKhu1Kkox90XDuH8RmcBOXNn"
       />
@@ -23,7 +23,7 @@ const Header = (props) => {
             {props.isAuth ? (
               "Имя - " + props.login
             ) : (
-                // страничуки логина пока нет, поэтому и ветка тупиковая
+              // страничуки логина пока нет, поэтому и ветка тупиковая
               <NavLink to={"/login"}>Login</NavLink>
             )}
           </div>
