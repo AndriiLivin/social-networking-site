@@ -31,6 +31,7 @@ const authReduser = (state = initialState, action) => {
       return {
         ...state,
         ...action.data,
+        isAuth: true,
         // передаем данные пользователя
         userLogData: action.usLogData,
       };

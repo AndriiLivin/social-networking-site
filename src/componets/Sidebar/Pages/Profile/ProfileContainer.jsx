@@ -7,6 +7,7 @@ import {
 } from "../../../../redux/profileReducer";
 
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 // wrapper to use react router's v6 hooks in class component
 // (to use HOC pattern, like in router v5)
@@ -30,6 +31,14 @@ class ProfileContainer extends React.Component {
   }
 
   render() {
+    // читаем из пропсов об авторизации
+    console.log(this.props.isAuth);
+    // возвращаем компоненту <Navigate/> вместо нужного jsx
+    if (this.props.isAuth === false) {
+      // return <Redirect to= {"/login"}/>
+      return <Navigate to={"/login"} />;
+    }
+
     return (
       <section>
         {/* все приходящие пропсы прокидываем 
@@ -42,6 +51,7 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
+  isAuth: state.auth.isAuth,
 });
 
 export default connect(mapStateToProps, {

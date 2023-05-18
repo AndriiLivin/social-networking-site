@@ -23,7 +23,7 @@ const Header = (props) => {
             {props.isAuth ? (
               "Имя - " + props.login
             ) : (
-              // страничуки логина пока нет, поэтому и ветка тупиковая
+              // странички логина пока нет, поэтому и ветка тупиковая
               <NavLink to={"/login"}>Login</NavLink>
             )}
           </div>

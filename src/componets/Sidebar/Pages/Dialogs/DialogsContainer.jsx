@@ -10,6 +10,8 @@ import { connect } from "react-redux";
 let mapStateToProps = (state) => {
   return {
     messagesPage: state.messagesPage,
+    // приходит флаг из пропсов об авторизации
+    isAuth: state.auth.isAuth,
   };
 };
 

@@ -15,6 +15,7 @@ import DialogsContainer from "./componets/Sidebar/Pages/Dialogs/DialogsContainer
 import UsersContainer from "./componets/Sidebar/Pages/Users/UsersContainer";
 import ProfileContainer from "./componets/Sidebar/Pages/Profile/ProfileContainer";
 import HeaderContainer from "./componets/Header/HeaderContainer";
+import LoginPage from "./componets/Login/Login";
 
 // const App = (props) => {
 const App = () => {
@@ -36,6 +37,8 @@ const App = () => {
           <Route path="/Users/*" element={<UsersContainer />} />
 
           <Route path="/Settings/*" element={<Settings />} />
+
+          <Route path="/login/*" element={<LoginPage/>} />
         </Routes>
       </main>
       <Footer />
